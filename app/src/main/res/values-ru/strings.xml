@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">PEA</string>
-    <string name="title_home">Главная</string>
+    <string name="title_home">Новости</string>
     <string name="title_stock">Акции</string>
     <string name="title_calculators">Калькулятор</string>
     <string name="title_exchange">Валюты</string>
