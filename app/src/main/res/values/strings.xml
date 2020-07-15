@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">PEA</string>
+    <string name="title_home">News</string>
+    <string name="title_stock">Stock</string>
+    <string name="title_calculators">Calculator</string>
+    <string name="title_exchange">Exchange</string>
+</resources>

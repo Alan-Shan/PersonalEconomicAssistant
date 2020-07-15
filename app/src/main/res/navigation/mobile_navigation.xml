@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="top.ilum.pea.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_stock"
+        android:name="top.ilum.pea.ui.stock.StockFragment"
+        android:label="@string/title_stock"
+        tools:layout="@layout/fragment_stock" />
+
+    <fragment
+        android:id="@+id/navigation_calculators"
+        android:name="top.ilum.pea.ui.calculators.CalculatorsFragment"
+        android:label="@string/title_calculators"
+        tools:layout="@layout/fragment_calculators" />
+    <fragment
+        android:id="@+id/navigation_exchange"
+        android:name="top.ilum.pea.ui.exchange.ExchangeFragment"
+        android:label="@string/title_exchange"
+        tools:layout="@layout/fragment_exchange" />
+</navigation>
