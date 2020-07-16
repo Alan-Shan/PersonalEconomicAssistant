@@ -4,4 +4,7 @@
     <string name="title_stock">Stock</string>
     <string name="title_calculators">Calculator</string>
     <string name="title_exchange">Exchange</string>
+    <string name="textimg" translatable="false">NYT</string>
+    <string name="network_unreacheable" translatable="false">Sorry! You don\'t have an active network!</string>
+
 </resources>
