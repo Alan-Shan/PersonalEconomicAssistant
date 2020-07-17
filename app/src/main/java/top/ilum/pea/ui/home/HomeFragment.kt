@@ -45,9 +45,6 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var json: News
-        var jsonPosts: List<Results> = listOf()
-        var posts: List<Results>
         okHttpClient.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 Snackbar.make(view, getString(R.string.network_unreacheable), Snackbar.LENGTH_LONG)
@@ -56,7 +53,7 @@ class HomeFragment : Fragment() {
             override fun onResponse(call: Call?, response: Response) {
                 if (!response.isSuccessful) { Snackbar.make(view, getString(R.string.network_unreacheable), Snackbar.LENGTH_LONG).show() }
                 val posts = JSONObject(response.body()?.string() as String).getJSONArray("results")
-                jsonPosts = Gson().fromJson(posts.toString(), Array<Results>::class.java).toList()
+                val jsonPosts = Gson().fromJson(posts.toString(), Array<Results>::class.java).toList()
                 Handler(Looper.getMainLooper()).post {
                     news_recycler.apply {
                         layoutManager = LinearLayoutManager(activity)

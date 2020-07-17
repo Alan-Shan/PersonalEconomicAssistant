@@ -31,7 +31,7 @@ class NewsAdapter(var list: List<Results>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.header.text = list[position].title
         holder.description.text = list[position].abstract
-        Picasso.get().load(list[position].multimedia[2].url).into(holder.preview)
+        Picasso.get().load(list[position].multimedia[2].url).into(holder.preview) // Load cropped picture
         holder.card.setOnClickListener {
             startActivity(it.context, Intent(Intent.ACTION_VIEW, Uri.parse(list[position].url)), null)
         }
