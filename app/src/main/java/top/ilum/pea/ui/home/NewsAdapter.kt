@@ -14,7 +14,7 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.news_item.view.*
 import top.ilum.pea.R
 
-class NewsAdapter(var list: List<Results>) :
+class NewsAdapter(private var list: List<Results>) :
     RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int = list.size
