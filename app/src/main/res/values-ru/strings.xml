@@ -6,4 +6,5 @@
     <string name="title_calculators">Калькулятор</string>
     <string name="title_exchange">Валюты</string>
     <string name="network_unreacheable" translatable="false">К сожалению, сеть недоступна!</string>
+    <string name="exchanges__numberOf">Кол-во</string>
 </resources>

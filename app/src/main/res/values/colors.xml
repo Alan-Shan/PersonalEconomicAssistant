@@ -5,4 +5,13 @@
     <color name="colorAccent">#00bfa5</color>
     <color name="lightPrimaryColor">#e0f2f1</color>
     <color name="textColor">#212121</color>
+    <color name="h2_color">#232829</color>
+    <color name="input_desc">#394341</color>
+    <color name="input">#222726</color>
+    <color name="mainBackground">#F5F7F7</color> <!--> World of Tanks! <-->
+    <color name="lowBorder1">#80CBC4</color>
+    <color name="lowBorder2">#26A69A</color>
+    <color name="hardBorder1">#004D40</color>
+    <color name="buttonGradient_light">#36A69A</color>
+    <color name="buttonGradient_dark">#0C7066</color>
 </resources>
