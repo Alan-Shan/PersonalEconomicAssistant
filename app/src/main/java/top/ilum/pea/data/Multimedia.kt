@@ -1,4 +1,4 @@
-package top.ilum.pea.ui.home
+package top.ilum.pea.data
 
 import com.google.gson.annotations.SerializedName
 
