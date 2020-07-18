@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.news_item.view.*
 import top.ilum.pea.R
+import top.ilum.pea.data.Results
 
 class NewsAdapter(private var list: List<Results>) :
     RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
