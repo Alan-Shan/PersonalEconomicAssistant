@@ -6,5 +6,6 @@
     <string name="title_exchange">Exchange</string>
     <string name="textimg" translatable="false">NYT</string>
     <string name="network_unreacheable" translatable="false">Sorry! You don\'t have an active network!</string>
+    <string name="exchanges__numberOf">Number</string>
 
 </resources>
