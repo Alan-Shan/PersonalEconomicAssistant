@@ -21,6 +21,16 @@ class HomeFragment : Fragment() {
 
     private lateinit var viewModel: NewsViewModel
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        retainInstance = true
+        viewModel =
+            ViewModelProviders.of(
+                this,
+                ViewModelFactory(ApiHelper(RetrofitBuilder.apiService))
+            ).get(NewsViewModel::class.java)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -28,14 +38,8 @@ class HomeFragment : Fragment() {
     ): View? =
         inflater.inflate(R.layout.fragment_home, container, false)
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        viewModel = ViewModelProviders.of(
-            this,
-            ViewModelFactory(ApiHelper(RetrofitBuilder.apiService))
-        ).get(NewsViewModel::class.java)
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         viewModel.getNews().observe(
             viewLifecycleOwner,
             Observer {
@@ -62,5 +66,9 @@ class HomeFragment : Fragment() {
                 }
             }
         )
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
     }
 }
