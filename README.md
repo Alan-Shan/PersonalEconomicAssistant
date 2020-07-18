@@ -8,3 +8,5 @@
 - Control of income/expenses
 
 *in the development*
+
+[![CodeFactor](https://www.codefactor.io/repository/github/alan-shan/personaleconomicassistant/badge)](https://www.codefactor.io/repository/github/alan-shan/personaleconomicassistant)
