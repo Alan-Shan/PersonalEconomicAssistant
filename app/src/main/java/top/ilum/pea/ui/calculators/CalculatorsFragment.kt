@@ -24,7 +24,7 @@ class CalculatorsFragment : Fragment() {
                 else -> MortgageFragment()
             }
         val transaction = fragmentManager?.beginTransaction()
-        transaction?.replace(R.id.nav_host_fragment, fragment)
+        transaction?.replace(R.id.nav_host_container, fragment)
         transaction?.addToBackStack(null)
         transaction?.commit()
     }
