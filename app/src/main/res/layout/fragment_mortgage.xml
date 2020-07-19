@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mainBackground">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/txtMortgageCalc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/mortgage"
+            android:textColor="@color/textColor"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtSumMortgage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:hint="@string/sum"
+            android:padding="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtMortgageCalc">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#FFFFFF"
+                android:inputType="numberDecimal"
+                android:maxLines="1"
+                android:textColor="@color/secondaryTextColor" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtPeriodMortgage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/period"
+            android:padding="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/txtRateMortgage"
+            app:layout_constraintEnd_toStartOf="@+id/txtRateMortgage"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/txtRateMortgage"
+            app:layout_constraintVertical_bias="0.0">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#FFFFFF"
+                android:inputType="numberDecimal"
+                android:maxLines="1"
+                android:textColor="@color/secondaryTextColor" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtRateMortgage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:hint="@string/rate"
+            android:padding="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/txtPeriodMortgage"
+            app:layout_constraintTop_toBottomOf="@+id/txtSumMortgage">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#FFFFFF"
+                android:inputType="numberDecimal"
+                android:maxLines="1"
+                android:textColor="@color/secondaryTextColor" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/textColor"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtPeriodMortgage" />
+
+        <TextView
+            android:id="@+id/txtResultsMortgage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="@string/results"
+            android:textColor="@color/textColor"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.825"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinner" />
+
+        <TextView
+            android:id="@+id/txtOverPayMortgage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/overpayment"
+            android:textColor="@color/textColor"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/txtTotalPayMortgage"
+            app:layout_constraintTop_toBottomOf="@+id/txtMonthPayMortgage" />
+
+        <TextView
+            android:id="@+id/txtTotalPayMortgage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/total_payment"
+            android:textColor="@color/textColor"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtOverPayMortgage" />
+
+        <TextView
+            android:id="@+id/txtValTotalMortgage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="@string/_000000"
+            android:textColor="@color/textColor"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/txtTotalPayMortgage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/txtTotalPayMortgage" />
+
+        <TextView
+            android:id="@+id/txtValOverMortgage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/_000000"
+            android:textColor="@color/textColor"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/txtOverPayMortgage"
+            app:layout_constraintEnd_toEndOf="@+id/txtValTotalMortgage"
+            app:layout_constraintTop_toTopOf="@+id/txtOverPayMortgage" />
+
+        <TextView
+            android:id="@+id/txtMonthPayMortgage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/monthly_payment"
+            android:textColor="@color/textColor"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/txtOverPayMortgage"
+            app:layout_constraintTop_toBottomOf="@+id/txtResultsMortgage" />
+
+        <TextView
+            android:id="@+id/txtValMonthMortgage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/_000000"
+            android:textColor="@color/textColor"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/txtMonthPayMortgage"
+            app:layout_constraintEnd_toEndOf="@+id/txtValOverMortgage"
+            app:layout_constraintTop_toTopOf="@+id/txtMonthPayMortgage"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCalculateMortgage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/calculate"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtTotalPayMortgage" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/groupMortgage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="txtResultsMortgage,txtOverPayMortgage,txtTotalPayMortgage,txtValTotalMortgage,txtValOverMortgage,txtMonthPayMortgage,txtValMonthMortgage"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

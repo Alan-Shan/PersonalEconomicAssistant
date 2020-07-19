@@ -4,31 +4,50 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.fragment_calculators.view.*
 import top.ilum.pea.R
+import top.ilum.pea.ui.calculators.fragments.CreditFragment
+import top.ilum.pea.ui.calculators.fragments.DepositFragment
+import top.ilum.pea.ui.calculators.fragments.MortgageFragment
 
 class CalculatorsFragment : Fragment() {
 
-    private lateinit var notificationsViewModel: NotificationsViewModel
+    private lateinit var adapter: CalculatorAdapter
+
+    fun changeFragment(position: Int) {
+        val fragment =
+            when(position){
+                0 -> CreditFragment()
+                1 -> DepositFragment()
+                else -> MortgageFragment()
+            }
+        val transaction = fragmentManager?.beginTransaction()
+        transaction?.replace(R.id.nav_host_fragment, fragment)
+        transaction?.addToBackStack(null)
+        transaction?.commit()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        notificationsViewModel =
-            ViewModelProviders.of(this).get(NotificationsViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_calculators, container, false)
-        val textView: TextView = root.findViewById(R.id.text_notifications)
-        notificationsViewModel.text.observe(
-            viewLifecycleOwner,
-            Observer {
-                textView.text = it
-            }
+        val view = inflater.inflate(R.layout.fragment_calculators, container, false)
+        adapter = CalculatorAdapter(
+            listOf(
+                getString(R.string.credit),
+                getString(R.string.deposit),
+                getString(R.string.mortgage)
+            ),
+            listOf(getString(R.string.descriptionCredit),
+                getString(R.string.descriptionDeposit),
+                getString(R.string.descriptionMortgage)),
+            this
         )
-        return root
+        view.recyclerCalculator.layoutManager = LinearLayoutManager(context)
+        view.recyclerCalculator.adapter = adapter
+        return view.recyclerCalculator
     }
 }

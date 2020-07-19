@@ -4,4 +4,27 @@
     <string name="title_stock">Stock</string>
     <string name="title_calculators">Calculator</string>
     <string name="title_exchange">Exchange</string>
+    <string name="textimg" translatable="false">NYT</string>
+    <string name="network_unreacheable" translatable="false">Sorry! You don\'t have an active network!</string>
+    <string name="exchanges__numberOf">Number</string>
+    <string name="credit">Credit calculator</string>
+    <string name="deposit">Deposit calculator</string>
+    <string name="mortgage">Mortgage calculator</string>
+    <string name="sum">Sum, rub</string>
+    <string name="period">Period, years</string>
+    <string name="rate">Rate, %</string>
+    <string name="results">Results:</string>
+    <string name="monthly_payment">Monthly payment:</string>
+    <string name="overpayment">Overpayment:</string>
+    <string name="total_payment">Total payment:</string>
+    <string name="_000000" translatable="false">000000</string>
+    <string name="calculate">Calculate</string>
+    <string name="size_of_contribution">Size of contribution, rub:</string>
+    <string name="period_of_deposit">Period of deposit, years:</string>
+    <string name="rate_on_the_deposit_per_year">Rate on the deposit per year, %:</string>
+    <string name="payment_type">Payment type</string>
+    <string name="fill_fields">Fill in all fields!</string>
+    <string name="descriptionCredit">Here you can calculate the loan amount, find out the monthly payment amount and the overpayment amount.</string>
+    <string name="descriptionDeposit">Calculation of income from placing a deposit in a bank for various terms and rates.</string>
+    <string name="descriptionMortgage">Calculation of mortgage, monthly payment and overpayment amount, depending on the type of payment (differentiated or annuity).</string>
 </resources>

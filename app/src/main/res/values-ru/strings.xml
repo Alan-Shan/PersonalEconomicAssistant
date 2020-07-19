@@ -5,4 +5,25 @@
     <string name="title_stock">Акции</string>
     <string name="title_calculators">Калькулятор</string>
     <string name="title_exchange">Валюты</string>
+    <string name="network_unreacheable" translatable="false">К сожалению, сеть недоступна!</string>
+    <string name="exchanges__numberOf">Кол-во</string>
+    <string name="credit">Кредитный калькулятор</string>
+    <string name="deposit">Депозитный калькулятор</string>
+    <string name="mortgage">Ипотечный калькулятор</string>
+    <string name="sum">Сумма, руб</string>
+    <string name="period">Период, лет</string>
+    <string name="rate">Ставка, %</string>
+    <string name="results">Результаты:</string>
+    <string name="monthly_payment">Ежемесячный платёж:</string>
+    <string name="overpayment">Переплата:</string>
+    <string name="total_payment">Общая выплата:</string>
+    <string name="calculate">Рассчитать</string>
+    <string name="size_of_contribution">Размер вклада, руб:</string>
+    <string name="period_of_deposit">Период размещения вклада, лет:</string>
+    <string name="rate_on_the_deposit_per_year">Ставка по вкладу в год, %:</string>
+    <string name="payment_type">Тип платежа</string>
+    <string name="fill_fields">Заполните все поля!</string>
+    <string name="descriptionCredit">Здесь вы можете рассчитать сумму кредита, узнать размер ежемесячного платежа и сумму переплаты.</string>
+    <string name="descriptionDeposit">Расчёт дохода от размещения в банке депозита на различные сроки и ставки.</string>
+    <string name="descriptionMortgage">Вычисление ипотеки, расчёт ежемесячного платежа и суммы переплаты в зависимости от типа платежа (дифференцированного или аннуитетного).</string>
 </resources>
