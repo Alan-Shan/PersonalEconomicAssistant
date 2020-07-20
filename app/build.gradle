@@ -50,7 +50,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation "androidx.cardview:cardview:1.0.0"
-    implementation 'com.squareup.okhttp3:okhttp:4.2.1'
+    implementation 'com.squareup.okhttp3:okhttp:4.2.2'
 
     //Picasso
     def picassoVersion = "2.71828"
@@ -71,4 +71,8 @@ dependencies {
     //Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.5'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.5'
+
+    //Room
+    implementation "androidx.room:room-runtime:2.2.5"
+    annotationProcessor "androidx.room:room-compiler:2.2.5"
 }
