@@ -14,11 +14,12 @@ import java.lang.Exception
 import kotlin.math.pow
 
 class CreditFragment : Fragment() {
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View = 
+    ): View =
         inflater.inflate(R.layout.fragment_credit, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
