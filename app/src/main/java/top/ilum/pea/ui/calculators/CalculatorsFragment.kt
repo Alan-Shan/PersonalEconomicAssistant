@@ -16,19 +16,6 @@ class CalculatorsFragment : Fragment() {
 
     private lateinit var adapter: CalculatorAdapter
 
-    fun changeFragment(position: Int) {
-        val fragment =
-            when (position) {
-                0 -> CreditFragment()
-                1 -> DepositFragment()
-                else -> MortgageFragment()
-            }
-        val transaction = fragmentManager?.beginTransaction()
-        transaction?.replace(R.id.nav_host_container, fragment)
-        transaction?.addToBackStack(null)
-        transaction?.commit()
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -45,8 +32,7 @@ class CalculatorsFragment : Fragment() {
                 getString(R.string.descriptionCredit),
                 getString(R.string.descriptionDeposit),
                 getString(R.string.descriptionMortgage)
-            ),
-            this
+            )
         )
         view.recyclerCalculator.layoutManager = LinearLayoutManager(context)
         view.recyclerCalculator.adapter = adapter

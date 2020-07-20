@@ -3,14 +3,14 @@ package top.ilum.pea.ui.calculators
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.calculator_view.view.*
 import top.ilum.pea.R
 
 class CalculatorAdapter(
     private var items: List<String>,
-    private var descriptions: List<String>,
-    private var calculatorsFragment: CalculatorsFragment
+    private var descriptions: List<String>
 ) :
     RecyclerView.Adapter<CalculatorAdapter.Holder>() {
 
@@ -22,7 +22,15 @@ class CalculatorAdapter(
     override fun onBindViewHolder(holder: Holder, position: Int) {
         holder.onBind(items[position], descriptions[position])
         holder.view.setOnClickListener {
-            calculatorsFragment.changeFragment(position)
+            it
+                .findNavController()
+                .navigate(
+                    when (position) {
+                        0 -> R.id.action_calcScreen_to_creditCalcScreen
+                        1 -> R.id.action_calcScreen_to_depositCalcScreen
+                        else -> R.id.action_calcScreen_to_mortgageCalcScreen
+                    }
+                )
         }
     }
 
