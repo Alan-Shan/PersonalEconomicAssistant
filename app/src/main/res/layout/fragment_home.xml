@@ -56,9 +56,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="16dp"
-        android:src="@android:drawable/ic_menu_edit"
+        android:src="@drawable/list_white_18dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:rippleColor="#FFFFFF" />
+        app:tint="#FFFFFF" />
 </androidx.constraintlayout.widget.ConstraintLayout>
