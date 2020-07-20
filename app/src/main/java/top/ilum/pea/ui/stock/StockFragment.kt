@@ -75,20 +75,22 @@ class StockFragment : Fragment() {
             )
         }
 
-        viewModel.getSymbols().observe(
-            viewLifecycleOwner,
-            Observer { it1 ->
-                when (it1.status) {
+        fun getSymbols() {
+            viewModel.getSymbols().observe(
+                viewLifecycleOwner,
+                Observer { it1 ->
+                    when (it1.status) {
 
-                    Status.LOADING -> {
-                    }
-                    Status.SUCCESS -> {
-                    }
-                    Status.ERROR -> {
-                        Log.e("ERROR!", it1.message.toString())
+                        Status.LOADING -> {
+                        }
+                        Status.SUCCESS -> {
+                        }
+                        Status.ERROR -> {
+                            Log.e("ERROR!", it1.message.toString())
+                        }
                     }
                 }
-            }
-        )
+            )
+        }
     }
 }
