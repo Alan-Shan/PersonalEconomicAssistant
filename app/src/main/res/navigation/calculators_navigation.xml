@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_calculators"
@@ -12,5 +11,45 @@
         android:name="top.ilum.pea.ui.calculators.CalculatorsFragment"
         android:label="@string/title_calculators"
         tools:layout="@layout/fragment_calculators">
+        <action
+            android:id="@+id/action_calcScreen_to_creditCalcScreen"
+            app:destination="@id/creditCalcScreen">
+            <action
+                android:id="@+id/action_to_creditCalcScreen"
+                app:destination="@id/creditCalcScreen" />
+        </action>
+        <action
+            android:id="@+id/action_calcScreen_to_depositCalcScreen"
+            app:destination="@id/depositCalcScreen">
+            <action
+                android:id="@+id/action_to_depositCalcScreen"
+                app:destination="@id/depositCalcScreen" />
+        </action>
+        <action
+            android:id="@+id/action_calcScreen_to_mortgageCalcScreen"
+            app:destination="@id/mortgageCalcScreen">
+            <action
+                android:id="@+id/action_to_mortgageCalcScreen"
+                app:destination="@id/mortgageCalcScreen" />
+        </action>
     </fragment>
+
+    <fragment
+        android:id="@+id/creditCalcScreen"
+        android:name="top.ilum.pea.ui.calculators.fragments.CreditFragment"
+        android:label="@string/title_calculators"
+        tools:layout="@layout/fragment_credit" />
+
+    <fragment
+        android:id="@+id/depositCalcScreen"
+        android:name="top.ilum.pea.ui.calculators.fragments.DepositFragment"
+        android:label="@string/title_calculators"
+        tools:layout="@layout/fragment_deposit" />
+
+    <fragment
+        android:id="@+id/mortgageCalcScreen"
+        android:name="top.ilum.pea.ui.calculators.fragments.MortgageFragment"
+        android:label="@string/title_calculators"
+        tools:layout="@layout/fragment_mortgage" />
+
 </navigation>
