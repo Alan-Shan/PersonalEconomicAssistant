@@ -8,9 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_calculators.view.*
 import top.ilum.pea.R
-import top.ilum.pea.ui.calculators.fragments.CreditFragment
-import top.ilum.pea.ui.calculators.fragments.DepositFragment
-import top.ilum.pea.ui.calculators.fragments.MortgageFragment
 
 class CalculatorsFragment : Fragment() {
 

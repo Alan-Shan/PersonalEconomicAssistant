@@ -13,25 +13,14 @@
         tools:layout="@layout/fragment_calculators">
         <action
             android:id="@+id/action_calcScreen_to_creditCalcScreen"
-            app:destination="@id/creditCalcScreen">
-            <action
-                android:id="@+id/action_to_creditCalcScreen"
-                app:destination="@id/creditCalcScreen" />
-        </action>
+            app:destination="@id/creditCalcScreen" />
         <action
             android:id="@+id/action_calcScreen_to_depositCalcScreen"
-            app:destination="@id/depositCalcScreen">
-            <action
-                android:id="@+id/action_to_depositCalcScreen"
-                app:destination="@id/depositCalcScreen" />
-        </action>
+            app:destination="@id/depositCalcScreen"/>
+
         <action
             android:id="@+id/action_calcScreen_to_mortgageCalcScreen"
-            app:destination="@id/mortgageCalcScreen">
-            <action
-                android:id="@+id/action_to_mortgageCalcScreen"
-                app:destination="@id/mortgageCalcScreen" />
-        </action>
+            app:destination="@id/mortgageCalcScreen"/>
     </fragment>
 
     <fragment
