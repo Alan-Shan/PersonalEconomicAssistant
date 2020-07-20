@@ -18,9 +18,8 @@ class CreditFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.fragment_credit, container, false)
-    }
+    ): View = 
+        inflater.inflate(R.layout.fragment_credit, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         group.visibility = Group.INVISIBLE

@@ -18,7 +18,7 @@ class CalculatorsFragment : Fragment() {
 
     fun changeFragment(position: Int) {
         val fragment =
-            when(position){
+            when (position) {
                 0 -> CreditFragment()
                 1 -> DepositFragment()
                 else -> MortgageFragment()
@@ -41,9 +41,11 @@ class CalculatorsFragment : Fragment() {
                 getString(R.string.deposit),
                 getString(R.string.mortgage)
             ),
-            listOf(getString(R.string.descriptionCredit),
+            listOf(
+                getString(R.string.descriptionCredit),
                 getString(R.string.descriptionDeposit),
-                getString(R.string.descriptionMortgage)),
+                getString(R.string.descriptionMortgage)
+            ),
             this
         )
         view.recyclerCalculator.layoutManager = LinearLayoutManager(context)
