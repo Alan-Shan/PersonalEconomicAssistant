@@ -1,7 +1,6 @@
 package top.ilum.pea.ui.home
 
 import android.content.Intent
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.news_item.view.*
 import top.ilum.pea.R
+import top.ilum.pea.WebViewActivity
 import top.ilum.pea.data.Results
 
 class NewsAdapter(private var list: List<Results>) :
@@ -32,9 +32,17 @@ class NewsAdapter(private var list: List<Results>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.header.text = list[position].title
         holder.description.text = list[position].abstract
-        Picasso.get().load(list[position].multimedia[2].url).into(holder.preview) // Load cropped picture
+        if (!list[position].multimedia.isNullOrEmpty()) {
+            Picasso.get().load(list[position].multimedia[2].url)
+                .into(holder.preview) // Load cropped picture
+        }
         holder.card.setOnClickListener {
-            startActivity(it.context, Intent(Intent.ACTION_VIEW, Uri.parse(list[position].url)), null)
+            startActivity(
+                it.context,
+                Intent(it.context, WebViewActivity::class.java)
+                    .putExtra("url", list[position].url),
+                null
+            )
         }
     }
 

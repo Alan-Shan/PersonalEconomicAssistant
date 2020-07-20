@@ -23,8 +23,8 @@ data class Results(
     @SerializedName("subheadline") val subheadline: String,
     @SerializedName("des_facet") val des_facet: List<String>,
     @SerializedName("org_facet") val org_facet: List<String>,
-    @SerializedName("per_facet") val per_facet: String,
-    @SerializedName("geo_facet") val geo_facet: String,
+    @SerializedName("per_facet") val per_facet: List<String>,
+    @SerializedName("geo_facet") val geo_facet: List<String>,
     @SerializedName("related_urls") val related_urls: String,
     @SerializedName("multimedia") val multimedia: List<Multimedia>
 )

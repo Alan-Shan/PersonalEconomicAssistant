@@ -26,4 +26,6 @@
     <string name="descriptionCredit">Здесь вы можете рассчитать сумму кредита, узнать размер ежемесячного платежа и сумму переплаты.</string>
     <string name="descriptionDeposit">Расчёт дохода от размещения в банке депозита на различные сроки и ставки.</string>
     <string name="descriptionMortgage">Вычисление ипотеки, расчёт ежемесячного платежа и суммы переплаты в зависимости от типа платежа (дифференцированного или аннуитетного).</string>
+    <string name="select_category">Выберите категорию</string>
+    <string name="cancel">Отмена</string>
 </resources>

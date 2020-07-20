@@ -6,7 +6,6 @@ apply from: '../code_quality_tools/ktlint.gradle'
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.0"
-    ndkVersion "21.3.6528147"
 
     defaultConfig {
         applicationId "top.ilum.pea"
@@ -22,12 +21,6 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-
-    externalNativeBuild {
-        ndkBuild {
-            path 'src/main/jni/Android.mk'
         }
     }
     
@@ -66,7 +59,7 @@ dependencies {
     //Lifecycle
     implementation 'androidx.lifecycle:lifecycle-common:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-runtime:2.2.0'
-    implementation 'android.arch.lifecycle:extensions:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
 
     //Retrofit

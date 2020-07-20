@@ -5,7 +5,7 @@
     <string name="title_calculators">Calculator</string>
     <string name="title_exchange">Exchange</string>
     <string name="textimg" translatable="false">NYT</string>
-    <string name="network_unreacheable" translatable="false">Sorry! You don\'t have an active network!</string>
+    <string name="network_unreacheable">Sorry! You don\'t have an active network!</string>
     <string name="exchanges__numberOf">Number</string>
     <string name="credit">Credit calculator</string>
     <string name="deposit">Deposit calculator</string>
@@ -27,4 +27,6 @@
     <string name="descriptionCredit">Here you can calculate the loan amount, find out the monthly payment amount and the overpayment amount.</string>
     <string name="descriptionDeposit">Calculation of income from placing a deposit in a bank for various terms and rates.</string>
     <string name="descriptionMortgage">Calculation of mortgage, monthly payment and overpayment amount, depending on the type of payment (differentiated or annuity).</string>
+    <string name="select_category">Select a category</string>Select a category:/string>
+    <string name="cancel">Cancel</string>
 </resources>

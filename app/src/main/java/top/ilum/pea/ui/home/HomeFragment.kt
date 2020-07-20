@@ -12,14 +12,14 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import top.ilum.pea.R
 import top.ilum.pea.utils.Status
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), DialogSelection.OnInputListener {
 
     companion object {
         fun newInstance(): HomeFragment =
             HomeFragment()
     }
-
     private lateinit var viewModel: NewsViewModel
+    private val newsCategories = arrayOf("Your Money", "Business")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +40,19 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getNews().observe(
+        getNews()
+        selector.setOnClickListener {
+            val dialog = DialogSelection()
+            dialog.setTargetFragment(
+                this,
+                22
+            )
+            fragmentManager?.let { it1 -> dialog.show(it1, "Dialog") }
+        }
+    }
+
+    private fun getNews(category: Int = 0) {
+        viewModel.getNews(category).observe(
             viewLifecycleOwner,
             Observer {
                 it?.let { resource ->
@@ -48,6 +60,7 @@ class HomeFragment : Fragment() {
                         Status.SUCCESS -> {
 
                             loading.visibility = View.GONE
+                            selector.visibility = View.VISIBLE
                             news_recycler.visibility = View.VISIBLE
                             news_recycler.apply {
                                 layoutManager = LinearLayoutManager(activity)
@@ -66,5 +79,8 @@ class HomeFragment : Fragment() {
                 }
             }
         )
+    }
+    override fun sendInput(input: Int) {
+        getNews(input)
     }
 }

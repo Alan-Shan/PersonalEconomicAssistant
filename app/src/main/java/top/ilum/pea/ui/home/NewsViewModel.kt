@@ -11,13 +11,15 @@ import top.ilum.pea.utils.Status
 class NewsViewModel(private val mainRepository: MainRepository) : ViewModel() {
 
     private var savedState: Resource<News> = Resource.loading(data = null)
+    private var savedCategory: Int = 0
 
-    fun getNews(): LiveData<Resource<News>> =
+    fun getNews(category: Int): LiveData<Resource<News>> =
         liveData(Dispatchers.IO) {
             emit(Resource.loading(data = null))
             try {
-                if (savedState.status == Status.LOADING) {
-                    savedState = Resource.success(data = mainRepository.getNews())
+                if (savedState.status == Status.LOADING || savedCategory != category) {
+                    savedState = Resource.success(data = mainRepository.getNews(category))
+                    savedCategory = category
                 }
                 emit(savedState)
             } catch (exception: Exception) {

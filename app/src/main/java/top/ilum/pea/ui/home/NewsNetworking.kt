@@ -11,6 +11,9 @@ interface ApiService {
 
     @GET("your money.json")
     suspend fun getNews(@Query("api-key") apiKey: String): News
+
+    @GET("business.json")
+    suspend fun getBusiness(@Query("api-key") apiKey: String): News
 }
 
 object RetrofitBuilder {
@@ -26,19 +29,19 @@ object RetrofitBuilder {
 }
 
 class ApiHelper(private val apiService: ApiService) {
-    init {
-        System.loadLibrary("keys")
-    }
 
-    private external fun getNYTKey(): String?
-    private val apiKey: String = String(Base64.decode(getNYTKey(), Base64.DEFAULT))
+    private val apiKey = String(Base64.decode("dVdrMzh1WXE1cVVFRDl6T1pkVHN5UGhMdnBjQUJBZUc", Base64.DEFAULT))
 
-    suspend fun getNews(): News =
-        apiService.getNews(apiKey)
+    suspend fun getNews(category: Int): News =
+        if (category == 0) {
+            apiService.getNews(apiKey)
+        } else {
+            apiService.getBusiness(apiKey)
+        }
 }
 
 class MainRepository(private val apiHelper: ApiHelper) {
 
-    suspend fun getNews(): News =
-        apiHelper.getNews()
+    suspend fun getNews(category: Int): News =
+        apiHelper.getNews(category)
 }
