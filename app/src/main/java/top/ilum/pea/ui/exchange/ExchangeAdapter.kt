@@ -1,6 +1,5 @@
 package top.ilum.pea.ui.exchange
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,11 +29,9 @@ class ExchangeAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutNum = if (viewType == 1) { 1 } else { 0 }
         isActive = viewType == 1
-        Log.e("active", activeNum.toString())
         val root = LayoutInflater.from(parent.context)
             .inflate(layoutsList[layoutNum], parent, false)
         val viewHolder = ViewHolder(root)
-        Log.e("type", viewType.toString())
         viewHolder.relativeLayout.setOnClickListener {
             isActive = !isActive
         }
@@ -60,6 +57,6 @@ class ExchangeAdapter(
     inner class ViewHolder(private val root: View) : RecyclerView.ViewHolder(root) {
         val relativeLayout = root as RelativeLayout
         var elementName: TextView = if (isActive) { root.exchange_elem__nameA } else { root.exchange_elem__name }
-        var elementSign = if (isActive) { root.exchange_elem__signA } else { root.exchange_elem__sign }
+        var elementSign: TextView = if (isActive) { root.exchange_elem__signA } else { root.exchange_elem__sign }
     }
 }

@@ -34,10 +34,6 @@ class ExchangeFragment : Fragment() {
     ): View? =
         inflater.inflate(R.layout.fragment_exchange, container, false)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
