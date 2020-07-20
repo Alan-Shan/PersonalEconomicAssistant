@@ -29,4 +29,5 @@
     <string name="descriptionMortgage">Calculation of mortgage, monthly payment and overpayment amount, depending on the type of payment (differentiated or annuity).</string>
     <string name="select_category">Select a category</string>Select a category:/string>
     <string name="cancel">Cancel</string>
+    <string name="exchanges__rateDesc">Rate:</string>
 </resources>

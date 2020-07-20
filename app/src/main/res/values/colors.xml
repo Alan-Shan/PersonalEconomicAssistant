@@ -15,4 +15,5 @@
     <color name="buttonGradient_light">#36A69A</color>
     <color name="buttonGradient_dark">#0C7066</color>
     <color name="secondaryTextColor">#757575</color>
+    <color name="exchangeElem__nameColor">#222726</color>
 </resources>

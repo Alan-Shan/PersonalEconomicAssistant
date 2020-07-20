@@ -28,4 +28,6 @@
     <string name="descriptionMortgage">Вычисление ипотеки, расчёт ежемесячного платежа и суммы переплаты в зависимости от типа платежа (дифференцированного или аннуитетного).</string>
     <string name="select_category">Выберите категорию</string>
     <string name="cancel">Отмена</string>
+    <string name="exchanges__rateDesc">Курс:</string>
+
 </resources>
