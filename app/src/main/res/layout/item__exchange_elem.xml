@@ -1,25 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="32dp"
-    android:background="#FFFFFF"
-    android:maxHeight="32dp"
-    android:minHeight="32dp">
+    android:layout_height="wrap_content"
+    android:background="@drawable/exchange__item"
+    android:minHeight="38dp">
 
     <TextView
         android:id="@+id/exchange_elem__name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="5dp"
+        android:layout_marginTop="3dp"
         android:layout_marginEnd="15dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="3dp"
         android:fontFamily="sans-serif-light"
         android:text="TextView"
         android:textColor="@color/exchangeElem__nameColor"
-        android:textSize="@dimen/exchangeElem_tz" />
+        android:textSize="@dimen/exchangeElem_tz"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/exchange_elem__sign"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/exchange_elem__sign"
@@ -27,21 +33,25 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="2dp"
         android:layout_marginEnd="5dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="2dp"
         android:fontFamily="sans-serif"
         android:text="TextView"
         android:textColor="@color/exchangeElem__nameColor"
-        android:textSize="17sp" />
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="0dp"
-        android:background="@color/lowBorder2" />
-</RelativeLayout>
+        android:background="@color/lowBorder2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
