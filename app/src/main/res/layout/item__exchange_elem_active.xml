@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="25dp"
-    android:minHeight="25dp"
-    android:maxHeight="25dp"
-    android:background="@drawable/exchange__active_item">
+    android:layout_height="32dp"
+    android:background="@drawable/exchange__active_item"
+    android:maxHeight="32dp"
+    android:minHeight="32dp">
 
     <TextView
         android:id="@+id/exchange_elem__nameA"
@@ -14,8 +13,9 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="5dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="15dp"
         android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:fontFamily="sans-serif-light"
         android:text="TextView"
         android:textColor="@color/exchangeElem__nameColor"
@@ -27,22 +27,21 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="4dp"
-        android:layout_marginTop="4dp"
         android:fontFamily="sans-serif"
         android:text="TextView"
         android:textColor="@color/exchangeElem__nameColor"
-        android:textSize="13sp"
-        android:layout_marginStart="10dp"/>
+        android:textSize="17sp" />
 
     <View
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginEnd="0dp"
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
         android:layout_marginStart="0dp"
-        android:background="@color/lowBorder2"
-        />
+        android:layout_marginEnd="0dp"
+        android:background="@color/lowBorder2" />
 </RelativeLayout>
