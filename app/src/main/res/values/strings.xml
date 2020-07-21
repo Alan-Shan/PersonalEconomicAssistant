@@ -24,7 +24,7 @@
     <string name="rate_on_the_deposit_per_year">Rate on the deposit per year, %:</string>
     <string name="payment_type">Payment type</string>
     <string name="fill_fields">Fill in all fields!</string>
-    <string name="descriptionCredit">Here you can calculate the loan amount, find out the monthly payment amount and the overpayment amount.</string>
+    <string name="descriptionCredit">Here you can calculate the loan amount, find out the monthly payment and the overpayment amount.</string>
     <string name="descriptionDeposit">Calculation of income from placing a deposit in a bank for various terms and rates.</string>
     <string name="descriptionMortgage">Calculation of mortgage, monthly payment and overpayment amount, depending on the type of payment (differentiated or annuity).</string>
     <string name="select_category">Select a category</string>Select a category:/string>
