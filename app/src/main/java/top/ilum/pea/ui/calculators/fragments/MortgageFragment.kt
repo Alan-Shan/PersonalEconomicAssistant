@@ -8,10 +8,9 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.constraintlayout.widget.Group
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.fragment_credit.*
 import kotlinx.android.synthetic.main.fragment_mortgage.*
 import top.ilum.pea.R
-import top.ilum.pea.ui.Format.Companion.formatNumber
+import top.ilum.pea.ui.formatNumber
 import java.lang.Exception
 import kotlin.math.pow
 
