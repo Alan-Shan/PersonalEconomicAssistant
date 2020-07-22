@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_home.*
 import top.ilum.pea.R
@@ -19,16 +19,15 @@ class HomeFragment : Fragment(), DialogSelection.OnInputListener {
             HomeFragment()
     }
     private lateinit var viewModel: NewsViewModel
-    private val newsCategories = arrayOf("Your Money", "Business")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance = true
-        viewModel =
-            ViewModelProviders.of(
-                this,
-                ViewModelFactory(ApiHelper(RetrofitBuilder.apiService))
-            ).get(NewsViewModel::class.java)
+        viewModel = ViewModelProvider(
+            this,
+            ViewModelFactory(ApiHelper(RetrofitBuilder.apiService))
+        )
+            .get(NewsViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -68,6 +67,7 @@ class HomeFragment : Fragment(), DialogSelection.OnInputListener {
                             }
                         }
                         Status.ERROR -> {
+                            news_recycler.visibility = View.GONE
                             loading.visibility = View.GONE
                             ouch.visibility = View.VISIBLE
                         }

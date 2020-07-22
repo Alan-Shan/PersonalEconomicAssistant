@@ -4,20 +4,33 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import top.ilum.pea.data.Database
+import top.ilum.pea.ui.stock.RetrofitBuilder
+import top.ilum.pea.ui.stock.StockApiHelper
+import top.ilum.pea.ui.stock.StockViewModel
+import top.ilum.pea.ui.stock.StockViewModelFactory
 
 class MainActivity : AppCompatActivity() {
-
+    private lateinit var viewModel: StockViewModel
     private var currentNavController: LiveData<NavController>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val db = Database.getDatabase(application)
         if (savedInstanceState == null) {
+            viewModel = ViewModelProvider(
+                this,
+                StockViewModelFactory(StockApiHelper(RetrofitBuilder.apiService))
+            )
+                .get(StockViewModel::class.java)
             setupBottomNavigationBar()
-        } // Else, need to wait for onRestoreInstanceState
+            viewModel.getSymbols()
+        }
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
