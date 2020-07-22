@@ -17,6 +17,7 @@ import com.github.mikephil.charting.formatter.IFillFormatter
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import kotlinx.android.synthetic.main.fragment_stock.*
 import top.ilum.pea.R
+import top.ilum.pea.data.Symbols
 import top.ilum.pea.utils.Status
 import java.util.Calendar
 import java.util.Date
@@ -25,7 +26,8 @@ import kotlin.collections.ArrayList
 class StockFragment : Fragment(), StockDialog.StockChange {
 
     private lateinit var viewModel: StockViewModel
-    fun getCandle(symbol: String, resolution: String, from: Long, to: Long) {
+    var currency = "USD"
+    private fun getCandle(symbol: String, resolution: String, from: Long, to: Long) {
 
         viewModel.getCandle(symbol, resolution, from, to).observe(
             viewLifecycleOwner,
@@ -137,7 +139,7 @@ class StockFragment : Fragment(), StockDialog.StockChange {
         )
     }
 
-    fun getQuote(symbol: String, name: String) {
+    private fun getQuote(symbol: String, name: String) {
         txt_stock.text = name
         viewModel.getQuote(symbol).observe(
             viewLifecycleOwner,
@@ -156,13 +158,13 @@ class StockFragment : Fragment(), StockDialog.StockChange {
         )
     }
 
-    private fun dataChanged(symbol: String, name: String) {
-
-        getQuote(symbol, name)
+    private fun dataChanged(symbols: Symbols) {
+        currency = symbols.currency
+        getQuote(symbols.symbol, symbols.description)
         val calendar = Calendar.getInstance()
         calendar.time = Date(System.currentTimeMillis())
         calendar.add(Calendar.DATE, -1)
-        getCandle(symbol, "60", calendar.timeInMillis / 1000, System.currentTimeMillis() / 1000)
+        getCandle(symbols.symbol, "60", calendar.timeInMillis / 1000, System.currentTimeMillis() / 1000)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -197,9 +199,17 @@ class StockFragment : Fragment(), StockDialog.StockChange {
                 val percentage =
                     "%.2f".format((it.currentPrice - it.previousClosePrice) / divideBy * 100)
                 val stockChange = "%.2f".format(it.currentPrice - it.previousClosePrice)
-                val stockValDisplay = "$stockChange ($percentage%)"
+                var stockValDisplay: String
+                stockValDisplay = if (it.currentPrice - it.previousClosePrice < 0) {
+                    txt_stock_val_change.setTextColor(Color.RED)
+                    "$stockChange $currency ($percentage%)"
+                } else {
+                    txt_stock_val_change.setTextColor(Color.GREEN)
+                    "+$stockChange $currency (+$percentage%)"
+                }
                 txt_stock_val_change.text = stockValDisplay
-                txt_stock_val.text = it.currentPrice.toString()
+                val stockVal = "${it.currentPrice} $currency"
+                txt_stock_val.text = stockVal
                 txtValClosing.text = it.previousClosePrice.toString()
                 txtValOpening.text = it.openPrice.toString()
                 val range = "${it.lowPriceDay} - ${it.highPriceDay}"
@@ -207,25 +217,7 @@ class StockFragment : Fragment(), StockDialog.StockChange {
             }
         )
 
-        fun getSymbols() {
-            viewModel.getSymbols().observe(
-                viewLifecycleOwner,
-                Observer { it1 ->
-                    when (it1.status) {
-
-                        Status.LOADING -> {
-                        }
-                        Status.SUCCESS -> {
-                        }
-                        Status.ERROR -> {
-                            Log.e("ERROR!", it1.message.toString())
-                        }
-                    }
-                }
-            )
-        }
-
-        dataChanged("AAPL", "Apple")
+        dataChanged(Symbols("Apple", "AAPL", "AAPL", "lol", currency))
         btnWatchOther.setOnClickListener {
             val stockMenu = StockDialog()
             stockMenu.setTargetFragment(
@@ -236,7 +228,7 @@ class StockFragment : Fragment(), StockDialog.StockChange {
         }
     }
 
-    override fun sendInput(input: String, name: String) {
-        dataChanged(input, name)
+    override fun sendInput(symbols: Symbols) {
+        dataChanged(symbols)
     }
 }

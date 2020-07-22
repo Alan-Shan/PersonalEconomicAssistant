@@ -8,11 +8,11 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.stock_item.view.*
 import top.ilum.pea.R
-import top.ilum.pea.data.StockAdapterData
+import top.ilum.pea.data.Symbols
 
-class StockAdapter(private val onClick: (data: List<String>) -> Unit) :
+class StockAdapter(private val onClick: (data: Symbols) -> Unit) :
     RecyclerView.Adapter<StockAdapter.ViewHolder>() {
-    var list: List<StockAdapterData> = listOf()
+    var list: List<Symbols> = listOf()
 
     override fun getItemCount(): Int = list.size
 
@@ -26,19 +26,19 @@ class StockAdapter(private val onClick: (data: List<String>) -> Unit) :
         )
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.stockName.text = list[position].name
-        holder.stockValue.text = list[position].value
-        holder.stockChanges.text = list[position].changes
+        holder.stockName.text = if (list[position].description.isNotEmpty()) {
+            list[position].description
+        } else {
+            list[position].symbol
+        }
         holder.card.setOnClickListener {
-            onClick(listOf(list[position].symbol, list[position].name))
+            onClick(list[position])
         }
     }
 
     inner class ViewHolder(root: View) : RecyclerView.ViewHolder(root) {
 
         var stockName: TextView = root.stockname
-        var stockValue: TextView = root.stockvalue
-        var stockChanges: TextView = root.stockchanges
         var card: CardView = root.findViewById(R.id.stockcard)
     }
 }

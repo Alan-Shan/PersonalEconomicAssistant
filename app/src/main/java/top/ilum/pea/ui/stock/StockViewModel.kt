@@ -1,19 +1,24 @@
 package top.ilum.pea.ui.stock
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import kotlinx.coroutines.Dispatchers
 import top.ilum.pea.data.Candle
+import top.ilum.pea.data.Database
 import top.ilum.pea.data.Quote
 import top.ilum.pea.data.Symbols
+import top.ilum.pea.data.SymbolsDao
 import top.ilum.pea.utils.Resource
 import top.ilum.pea.utils.Status
 
-class StockViewModel(private val mainRepository: MainRepository) : ViewModel() {
+class StockViewModel(private val mainRepository: MainRepository, application: Application) : AndroidViewModel(application) {
 
     private var _dailyData = MutableLiveData<Quote>()
+    private var personDao: SymbolsDao = Database.getDatabase(application).symbolsDao()
+
     val dailyData: LiveData<Quote>
         get() = _dailyData
 
@@ -26,6 +31,7 @@ class StockViewModel(private val mainRepository: MainRepository) : ViewModel() {
                     savedStateSymbols = Resource.success(data = mainRepository.getSymbols())
                 }
                 emit(savedStateSymbols)
+                personDao.insertAll(this.latestValue?.data!!)
             } catch (exception: Exception) {
                 emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
             }
@@ -36,7 +42,7 @@ class StockViewModel(private val mainRepository: MainRepository) : ViewModel() {
             emit(Resource.loading(data = null))
             try {
                 emit(Resource.success(data = mainRepository.getQuote(symbol)))
-                _dailyData.postValue(this.latestValue?.data ?: Quote(2.22, 2.22, 2.22, 2.22, 2.22, 22))
+                _dailyData.postValue(this.latestValue?.data!!)
             } catch (exception: Exception) {
                 emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
             }
@@ -52,4 +58,17 @@ class StockViewModel(private val mainRepository: MainRepository) : ViewModel() {
                 emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
             }
         }
+
+    fun getSymbolsDb(): LiveData<Resource<List<Symbols>>> =
+        liveData(Dispatchers.IO) {
+            emit(Resource.loading(data = null))
+            try {
+                savedStateSymbols = Resource.success(data = personDao.getAll())
+                emit(savedStateSymbols)
+            } catch (exception: Exception) {
+                emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+            }
+        }
+    fun populateDb() {
+    }
 }
