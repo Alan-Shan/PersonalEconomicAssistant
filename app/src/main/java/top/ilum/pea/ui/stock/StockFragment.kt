@@ -55,7 +55,7 @@ class StockFragment : Fragment(), StockDialog.StockChange {
                                 stock_chart.data.notifyDataChanged()
                                 stock_chart.notifyDataSetChanged()
                             } else {
-                                set1 = LineDataSet(values, "DataSet 1")
+                                set1 = LineDataSet(values, getString(R.string.stock_price))
                                 set1.setDrawIcons(false)
 
                                 set1.enableDashedLine(10f, 5f, 0f)

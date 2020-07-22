@@ -31,7 +31,8 @@
     <string name="cancel">Cancel</string>
     <string name="exchanges__rateDesc">Rate:</string>
     <string name="watch_other">Watch other</string>
-    <string name="daily_range">Дн. диапазон:</string>
-    <string name="opening">Открытие:</string>
-    <string name="closing">Пред. закрытие:</string>
+    <string name="daily_range">Daily range:</string>
+    <string name="opening">Opening date:</string>
+    <string name="closing">Pre-closing date:</string>
+    <string name="stock_price">Stock price</string>
 </resources>
