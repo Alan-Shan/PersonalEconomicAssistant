@@ -67,6 +67,7 @@ class HomeFragment : Fragment(), DialogSelection.OnInputListener {
                             }
                         }
                         Status.ERROR -> {
+                            news_recycler.visibility = View.GONE
                             loading.visibility = View.GONE
                             ouch.visibility = View.VISIBLE
                         }
