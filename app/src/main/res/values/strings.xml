@@ -34,4 +34,6 @@
     <string name="daily_range">Дн. диапазон:</string>
     <string name="opening">Открытие:</string>
     <string name="closing">Пред. закрытие:</string>
+    <string name="exchange__successLoad">Exchanges loaded successfully</string>
+    <string name="exchange__badLoad">Sorry! You don\'t have an active network!</string>
 </resources>

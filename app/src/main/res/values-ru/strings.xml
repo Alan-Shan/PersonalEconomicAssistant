@@ -33,4 +33,6 @@
     <string name="daily_range">Дн. диапазон:</string>
     <string name="opening">Открытие:</string>
     <string name="closing">Пред. закрытие:</string>
+    <string name="exchange__successLoad">Котировки успешно загружены!</string>
+    <string name="exchange__badLoad">Для загрузки котировок необходим интернет</string>
 </resources>

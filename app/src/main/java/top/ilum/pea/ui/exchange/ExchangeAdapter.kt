@@ -86,4 +86,5 @@ class ExchangeAdapter(
         var elementName: TextView = root.exchange_elem__name
         var elementSign: TextView = root.exchange_elem__sign
     }
+
 }
