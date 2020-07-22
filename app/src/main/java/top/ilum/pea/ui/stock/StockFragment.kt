@@ -17,6 +17,7 @@ import com.github.mikephil.charting.formatter.IFillFormatter
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import kotlinx.android.synthetic.main.fragment_stock.*
 import top.ilum.pea.R
+import top.ilum.pea.data.Symbols
 import top.ilum.pea.utils.Status
 import java.util.Calendar
 import java.util.Date
