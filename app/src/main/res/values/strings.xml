@@ -30,4 +30,8 @@
     <string name="select_category">Select a category</string>Select a category:/string>
     <string name="cancel">Cancel</string>
     <string name="exchanges__rateDesc">Rate:</string>
+    <string name="watch_other">Watch other</string>
+    <string name="daily_range">Дн. диапазон:</string>
+    <string name="opening">Открытие:</string>
+    <string name="closing">Пред. закрытие:</string>
 </resources>

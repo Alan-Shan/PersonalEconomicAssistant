@@ -39,7 +39,6 @@ class StockFragment : Fragment(), StockDialog.StockChange {
                         fun setData(count: Int, range: Float) {
                             val values: ArrayList<Entry> = ArrayList()
                             for (i in 0 until count) {
-                                // val `val` = (Math.random() * range).toFloat() - 30 // ну и вот здесь
                                 values.add(
                                     Entry(i.toFloat(), closePrices[i].toFloat())
                                 )
@@ -54,77 +53,52 @@ class StockFragment : Fragment(), StockDialog.StockChange {
                                 stock_chart.data.notifyDataChanged()
                                 stock_chart.notifyDataSetChanged()
                             } else {
-                                // create a dataset and give it a type
                                 set1 = LineDataSet(values, "DataSet 1")
                                 set1.setDrawIcons(false)
 
-                                // draw dashed line
                                 set1.enableDashedLine(10f, 5f, 0f)
 
-                                // black lines and points
                                 set1.color = Color.BLACK
                                 set1.setCircleColor(Color.BLACK)
 
-                                // line thickness and point size
                                 set1.lineWidth = 1f
                                 set1.circleRadius = 1f
 
-                                // draw points as solid circles
                                 set1.setDrawCircleHole(false)
 
-                                // customize legend entry
                                 set1.formLineWidth = 1f
                                 set1.formLineDashEffect =
                                     DashPathEffect(floatArrayOf(10f, 5f), 0f)
                                 set1.formSize = 10f
 
-                                // text size of values
                                 set1.valueTextSize = 9f
 
-                                // draw selection line as dashed
                                 set1.enableDashedHighlightLine(10f, 5f, 0f)
 
-                                // set the filled area
                                 set1.setDrawFilled(true)
                                 set1.fillFormatter =
                                     IFillFormatter { _, _ -> stock_chart.axisLeft.axisMinimum }
 
                                 val dataSets: ArrayList<ILineDataSet> = ArrayList()
-                                dataSets.add(set1) // add the data sets
+                                dataSets.add(set1)
 
-                                // create a data object with the data sets
                                 val data = LineData(dataSets)
 
-                                // set data
                                 stock_chart.data = data
                             }
                         }
-                        // // Chart Style // //
 
-                        // background color
                         stock_chart.setBackgroundColor(Color.WHITE)
-
-                        // disable description text
                         stock_chart.description.isEnabled = false
-
-                        // enable touch gestures
                         stock_chart.setTouchEnabled(true)
-
-                        // force pinch zoom along both axis
                         stock_chart.setPinchZoom(true)
 
                         val xAxis = stock_chart.xAxis
                         xAxis.enableGridDashedLine(10f, 10f, 0f)
-
                         val yAxis = stock_chart.axisLeft
-
-                        // disable dual axis (only use LEFT axis)
                         stock_chart.axisRight.isEnabled = false
-
-                        // horizontal grid lines
                         yAxis.enableGridDashedLine(10f, 10f, 0f)
 
-                        // axis range
                         yAxis.axisMaximum = closePrices.max()!!.toFloat()  // вот здесь
                         yAxis.axisMinimum = closePrices.min()!!.toFloat()    // и вот здесь
                         setData(closePrices.size, 180f)   // а ещё вот здесь
@@ -199,7 +173,10 @@ class StockFragment : Fragment(), StockDialog.StockChange {
                 val stockChange = "%.2f".format(it.currentPrice - it.previousClosePrice)
                 val stockValDisplay = "$stockChange ($percentage%)"
                 txt_stock_val_change.text = stockValDisplay
-                txt_stock_val.text = it.currentPrice.toString()
+                if (stockChange.toDouble() <= 0)
+                    txt_stock_val_change.setTextColor(Color.rgb(255, 63, 16))
+                else
+                    txt_stock_val_change.setTextColor(Color.rgb(3, 217, 44))
                 txtValClosing.text = it.previousClosePrice.toString()
                 txtValOpening.text = it.openPrice.toString()
                 val range = "${it.lowPriceDay} - ${it.highPriceDay}"

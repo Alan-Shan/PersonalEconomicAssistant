@@ -17,7 +17,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:gravity="center"
-            android:text="Акции Apple"
             android:textColor="@color/textColor"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -30,7 +29,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="64dp"
             android:gravity="center"
-            android:text="395,24"
             android:textColor="@color/textColor"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -44,7 +42,6 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="64dp"
             android:gravity="center"
-            android:text="+7,01 (+1,81%)"
             android:textColor="#03D92C"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -63,24 +60,24 @@
             app:layout_constraintTop_toBottomOf="@+id/txt_stock_val" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:textColor="@color/textColor"
-            android:textSize="16sp"
             android:id="@+id/txtClosing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Пред. закрытие:"
+            android:text="@string/closing"
+            android:textColor="@color/textColor"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/txtOpening"
             app:layout_constraintTop_toBottomOf="@+id/stock_chart" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:textColor="@color/textColor"
-            android:textSize="16sp"
             android:id="@+id/txtOpening"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Открытие:"
+            android:text="@string/opening"
+            android:textColor="@color/textColor"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/txtRange"
             app:layout_constraintTop_toBottomOf="@+id/txtClosing" />
 
@@ -90,43 +87,43 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
-            android:text="Дн. диапазон:"
+            android:text="@string/daily_range"
             android:textColor="@color/textColor"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtOpening" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:textColor="@color/textColor"
-            android:textSize="16sp"
             android:id="@+id/txtValClosing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="388,23"
+            android:textColor="@color/textColor"
+            android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/txtValOpening"
             app:layout_constraintTop_toBottomOf="@+id/stock_chart" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:textColor="@color/textColor"
-            android:textSize="16sp"
             android:id="@+id/txtValOpening"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="395,98"
+            android:textColor="@color/textColor"
+            android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/txtValRange"
             app:layout_constraintTop_toBottomOf="@+id/txtValClosing" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:textColor="@color/textColor"
-            android:textSize="16sp"
             android:id="@+id/txtValRange"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
-            android:text="392,42 - 396,98"
+            android:textColor="@color/textColor"
+            android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtValOpening" />
 
@@ -137,7 +134,7 @@
             android:layout_marginStart="64dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="64dp"
-            android:text="Watch other"
+            android:text="@string/watch_other"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtRange" />
