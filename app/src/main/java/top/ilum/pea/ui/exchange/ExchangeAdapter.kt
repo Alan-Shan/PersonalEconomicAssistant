@@ -3,7 +3,6 @@ package top.ilum.pea.ui.exchange
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
@@ -13,16 +12,23 @@ import top.ilum.pea.data.ExchangeElement
 
 class ExchangeAdapter(
     private val elemList: List<ExchangeElement>,
-    private var activeNum: Int
-): RecyclerView.Adapter<ExchangeAdapter.ViewHolder>() {
+    private var activeNum: Int,
+    private val isLeft: Boolean,
+    private val exchangeParent: ExchangeFragment
+) : RecyclerView.Adapter<ExchangeAdapter.ViewHolder>() {
 
     private val viewHoldersList = mutableListOf<ViewHolder>()
     private var isActive = false
+    private var position = 0
 
     private val layoutsList = listOf(
         R.layout.item__exchange_elem,
         R.layout.item__exchange_elem_active
     )
+
+    override fun setHasStableIds(hasStableIds: Boolean) {
+        super.setHasStableIds(true)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutNum = if (viewType == 1) { 1 } else { 0 }
@@ -33,19 +39,33 @@ class ExchangeAdapter(
         if (viewHolder.isHolderActive) {
             viewHolder.relativeLayout.setBackgroundResource(R.drawable.exchange__active_item)
         }
-        viewHolder.relativeLayout.setOnClickListener {
-            if (viewHolder.isHolderActive) {
-                it.setBackgroundResource(R.drawable.exchange__active_item)
-            } else {
-                it.setBackgroundResource(R.drawable.exchange__item)
-            }
-            viewHolder.isHolderActive = !viewHolder.isHolderActive
-        }
         viewHoldersList.add(viewHolder)
         return viewHolder
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        if (position == activeNum) {
+            holder.relativeLayout.setBackgroundResource(R.drawable.exchange__active_item)
+            holder.isHolderActive = true
+        } else {
+            holder.relativeLayout.setBackgroundResource(R.drawable.exchange__item)
+            holder.isHolderActive = false
+        }
+        holder.relativeLayout.setOnClickListener {
+            if (!holder.isHolderActive) {
+                for (view in viewHoldersList) {
+                    if (view.isHolderActive) {
+                        view.relativeLayout.setBackgroundResource(R.drawable.exchange__item)
+                        view.isHolderActive = false
+                        break
+                    }
+                }
+                it.setBackgroundResource(R.drawable.exchange__active_item)
+                holder.isHolderActive = true
+                activeNum = position
+                exchangeParent.changeElems(activeNum, left = isLeft)
+            }
+        }
         holder.elementName.text = elemList[position].name
         holder.elementSign.text = elemList[position].sign
     }

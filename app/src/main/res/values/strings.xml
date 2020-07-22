@@ -27,7 +27,7 @@
     <string name="descriptionCredit">Here you can calculate the loan amount, find out the monthly payment amount and the overpayment amount.</string>
     <string name="descriptionDeposit">Calculation of income from placing a deposit in a bank for various terms and rates.</string>
     <string name="descriptionMortgage">Calculation of mortgage, monthly payment and overpayment amount, depending on the type of payment (differentiated or annuity).</string>
-    <string name="select_category">Select a category</string>Select a category:/string>
+    <string name="select_category">Select a category</string>Select a category:/string>  <!--> Тут что то странное...<-->
     <string name="cancel">Cancel</string>
     <string name="exchanges__rateDesc">Rate:</string>
 </resources>

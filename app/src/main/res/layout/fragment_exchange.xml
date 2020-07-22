@@ -10,33 +10,40 @@
 
     <TextView
         android:id="@+id/exchanges__finalValue"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="18dp"
         android:layout_marginEnd="14dp"
         android:fontFamily="sans-serif-medium"
-        android:text="15$"
+        android:text="1₽ = 1₽"
+        android:textAlignment="center"
         android:textColor="@color/h2_color"
         android:textSize="22sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/exchanges__inputDesc1"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/exchanges__inputDesc1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5" />
 
     <TextView
         android:id="@+id/exchanges__inputDesc1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="75dp"
         android:text="@string/exchanges__numberOf"
         android:textColor="@color/input_desc"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exchanges__finalValue" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/exchanges__input"
+        android:maxLength="18"
         android:layout_width="0dp"
         android:layout_height="36dp"
         android:layout_marginStart="14dp"
@@ -56,7 +63,7 @@
         app:layout_constraintTop_toBottomOf="@+id/exchanges__inputDesc1" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/exchanges__rateDesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
@@ -66,18 +73,18 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        app:layout_constraintTop_toBottomOf="@+id/exchanges__input" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/exchanges__rate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="7dp"
         android:text="1₽ = 0,014$"
         android:textColor="@color/h2_color"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView"
-        app:layout_constraintStart_toEndOf="@+id/textView" />
+        app:layout_constraintBottom_toBottomOf="@+id/exchanges__rateDesc"
+        app:layout_constraintStart_toEndOf="@+id/exchanges__rateDesc" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -94,7 +101,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_max="400dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/exchanges__rateDesc"
         app:layout_constraintVertical_bias="0.0">
 
         <RelativeLayout
@@ -104,12 +111,14 @@
             android:background="@drawable/exchange_elem_bg"
             android:paddingStart="1dp"
             android:paddingTop="1dp"
-            android:paddingEnd="1dp">
+            android:paddingEnd="1dp"
+            android:elevation="5dp">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/exchanges__recyclerLeft"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="-1dp"/>
 
         </RelativeLayout>
 
@@ -124,12 +133,14 @@
             android:background="@drawable/exchange_elem_bg"
             android:paddingStart="1dp"
             android:paddingTop="1dp"
-            android:paddingEnd="1dp">
+            android:paddingEnd="1dp"
+            android:elevation="5dp">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/exchanges__recyclerRight"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="-1dp"/>
 
         </RelativeLayout>
     </LinearLayout>

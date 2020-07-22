@@ -1,16 +1,21 @@
 package top.ilum.pea.ui.exchange
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_exchange.*
 import top.ilum.pea.MainActivity
 import top.ilum.pea.R
 import top.ilum.pea.data.ExchangeElement
+import java.lang.Exception
+import java.text.DecimalFormat
+import kotlin.math.roundToLong
+
 class ExchangeFragment : Fragment() {
 
     private val siteName = "https://www.cbr-xml-daily.ru/daily_utf8.xml"
@@ -19,38 +24,44 @@ class ExchangeFragment : Fragment() {
     private var rightActive = 3
 
     private val testExchangeList = listOf(
-        ExchangeElement("Российский Рубль", 1.0, "₽"),
-        ExchangeElement("Евро", 1.0, "€"),
+        ExchangeElement("Российский Рубль", 0.014, "₽"),
+        ExchangeElement("Евро", 1.14, "€"),
         ExchangeElement("Американский Доллар", 1.0, "\$"),
-        ExchangeElement("Японская Иена", 1.0, "¥"),
-        ExchangeElement("Британский фунт", 1.0, "£"),
-//        ExchangeElement("Российский Рубль", 1.0, "₽"),
-//        ExchangeElement("Евро", 1.0, "€"),
-//        ExchangeElement("Американский Доллар", 1.0, "\$"),
-//        ExchangeElement("Японская Иена", 1.0, "¥"),
-//        ExchangeElement("Британский фунт", 1.0, "£"),
-//        ExchangeElement("Российский Рубль", 1.0, "₽"),
-//        ExchangeElement("Евро", 1.0, "€"),
-//        ExchangeElement("Американский Доллар", 1.0, "\$"),
-//        ExchangeElement("Японская Иена", 1.0, "¥"),
-//        ExchangeElement("Британский фунт", 1.0, "£"),
-//        ExchangeElement("Российский Рубль", 1.0, "₽"),
-//        ExchangeElement("Евро", 1.0, "€"),
-//        ExchangeElement("Американский Доллар", 1.0, "\$"),
-//        ExchangeElement("Японская Иена", 1.0, "¥"),
-//        ExchangeElement("Британский фунт", 1.0, "£"),
-//        ExchangeElement("Российский Рубль", 1.0, "₽"),
-//        ExchangeElement("Евро", 1.0, "€"),
-//        ExchangeElement("Американский Доллар", 1.0, "\$"),
-//        ExchangeElement("Японская Иена", 1.0, "¥"),
-//        ExchangeElement("Британский фунт", 1.0, "£"),
-//        ExchangeElement("Российский Рубль", 1.0, "₽"),
-//        ExchangeElement("Евро", 1.0, "€"),
-//        ExchangeElement("Американский Доллар", 1.0, "\$"),
-//        ExchangeElement("Японская Иена", 1.0, "¥"),
-//        ExchangeElement("Британский фунт", 1.0, "£"),
-        ExchangeElement("Швейцарский франк", 1.0, "₣")
+        ExchangeElement("Японская Иена", 0.0093, "¥"),
+        ExchangeElement("Британский фунт", 1.27, "£"),
+        ExchangeElement("Евро", 1.14, "€"),
+        ExchangeElement("Американский Доллар", 1.0, "\$"),
+        ExchangeElement("Японская Иена", 0.0093, "¥"),
+        ExchangeElement("Британский фунт", 1.27, "£"),
+        ExchangeElement("Евро", 1.14, "€"),
+        ExchangeElement("Американский Доллар", 1.0, "\$"),
+        ExchangeElement("Японская Иена", 0.0093, "¥"),
+        ExchangeElement("Британский фунт", 1.27, "£"),
+        ExchangeElement("Евро", 1.14, "€"),
+        ExchangeElement("Американский Доллар", 1.0, "\$"),
+        ExchangeElement("Японская Иена", 0.0093, "¥"),
+        ExchangeElement("Британский фунт", 1.27, "£"),
+        ExchangeElement("Евро", 1.14, "€"),
+        ExchangeElement("Американский Доллар", 1.0, "\$"),
+        ExchangeElement("Японская Иена", 0.0093, "¥"),
+        ExchangeElement("Британский фунт", 1.27, "£"),
+        ExchangeElement("Евро", 1.14, "€"),
+        ExchangeElement("Американский Доллар", 1.0, "\$"),
+        ExchangeElement("Японская Иена", 0.0093, "¥"),
+        ExchangeElement("Британский фунт", 1.27, "£"),
+        ExchangeElement("Евро", 1.14, "€"),
+        ExchangeElement("Американский Доллар", 1.0, "\$"),
+        ExchangeElement("Японская Иена", 0.0093, "¥"),
+        ExchangeElement("Британский фунт", 1.27, "£"),
+        ExchangeElement("Евро", 1.14, "€"),
+        ExchangeElement("Американский Доллар", 1.0, "\$"),
+        ExchangeElement("Японская Иена", 0.0093, "¥"),
+        ExchangeElement("Британский фунт", 1.27, "£"),
+        ExchangeElement("Швейцарский франк", 1.07, "₣")
     )
+
+    var leftElem = testExchangeList[leftActive]
+    var rightElem = testExchangeList[rightActive]
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,8 +73,8 @@ class ExchangeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val leftAdapter = ExchangeAdapter(testExchangeList, leftActive)
-        val rightAdapter = ExchangeAdapter(testExchangeList, rightActive)
+        val leftAdapter = ExchangeAdapter(testExchangeList, leftActive, isLeft = true, exchangeParent = this)
+        val rightAdapter = ExchangeAdapter(testExchangeList, rightActive, isLeft = false, exchangeParent = this)
 
         exchanges__recyclerLeft.layoutManager = LinearLayoutManager(MainActivity())
         exchanges__recyclerLeft.adapter = leftAdapter
@@ -71,9 +82,48 @@ class ExchangeFragment : Fragment() {
         exchanges__recyclerRight.layoutManager = LinearLayoutManager(MainActivity())
         exchanges__recyclerRight.adapter = rightAdapter
 
-        for (i in 0 until leftAdapter.itemCount) {
-            val item = leftAdapter.getItemId(i)
-            leftAdapter.notifyItemChanged(i, { Toast.makeText(MainActivity(), "number = $i", Toast.LENGTH_SHORT).show() })
+        exchanges__input.addTextChangedListener {
+            changeValues()
+        }
+    }
+
+    fun getValueText(num: Double, pattern: String = "#.###"): String {
+        val df = DecimalFormat(pattern)
+        return if (num == num.roundToLong().toDouble()) {
+            num.roundToLong().toString()
+        } else {
+            df.format(num).toString()
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    fun changeElems(activeNum: Int, left: Boolean = true) {
+        if (left) {
+            leftElem = testExchangeList[activeNum]
+        } else {
+            rightElem = testExchangeList[activeNum]
+        }
+        val rate = leftElem.value / rightElem.value
+        changeValues(rate)
+        exchanges__rate.text = "1${leftElem.sign} = ${getValueText(rate, "#.######")}${rightElem.sign}"
+    }
+
+    @SuppressLint("SetTextI18n")
+    fun changeValues(setRate: Double? = null) {
+        var inputValue = 1.0
+        val inputText = exchanges__input.text.toString()
+        var badText = false
+        if (inputText != "") {
+            try {
+                inputValue = inputText.toDouble()
+            } catch (e: Exception) {
+                badText = true
+            }
+        }
+        if (!badText) {
+            val rate = setRate ?: leftElem.value / rightElem.value
+            exchanges__finalValue.text =
+                "${getValueText(inputValue)}${leftElem.sign} = ${getValueText(inputValue * rate)}${rightElem.sign}"
         }
     }
 }
