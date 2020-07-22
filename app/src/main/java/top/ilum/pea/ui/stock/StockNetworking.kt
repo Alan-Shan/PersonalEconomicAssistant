@@ -29,8 +29,8 @@ interface ApiService {
         @Query("token") apiKey: String,
         @Query("symbol") symbol: String,
         @Query("resolution") resolution: String,
-        @Query("from") from: Int,
-        @Query("to") to: Int
+        @Query("from") from: Long,
+        @Query("to") to: Long
     ): Candle
 }
 
@@ -55,7 +55,7 @@ class StockApiHelper(private val apiService: ApiService) {
     suspend fun getQuote(symbol: String): Quote =
         apiService.getQuote(apiKey, symbol)
 
-    suspend fun getCandle(symbol: String, resolution: String, from: Int, to: Int): Candle =
+    suspend fun getCandle(symbol: String, resolution: String, from: Long, to: Long): Candle =
         apiService.getCandle(apiKey, symbol, resolution, from, to)
 }
 
@@ -67,6 +67,6 @@ class MainRepository(private val apiHelper: StockApiHelper) {
     suspend fun getQuote(symbol: String): Quote =
         apiHelper.getQuote(symbol)
 
-    suspend fun getCandle(symbol: String, resolution: String, from: Int, to: Int): Candle =
+    suspend fun getCandle(symbol: String, resolution: String, from: Long, to: Long): Candle =
         apiHelper.getCandle(symbol, resolution, from, to)
 }

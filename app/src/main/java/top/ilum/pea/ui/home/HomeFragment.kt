@@ -19,7 +19,6 @@ class HomeFragment : Fragment(), DialogSelection.OnInputListener {
             HomeFragment()
     }
     private lateinit var viewModel: NewsViewModel
-    private val newsCategories = arrayOf("Your Money", "Business")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

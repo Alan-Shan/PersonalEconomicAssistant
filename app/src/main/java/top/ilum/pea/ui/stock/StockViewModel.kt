@@ -1,6 +1,7 @@
 package top.ilum.pea.ui.stock
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import kotlinx.coroutines.Dispatchers
@@ -11,6 +12,10 @@ import top.ilum.pea.utils.Resource
 import top.ilum.pea.utils.Status
 
 class StockViewModel(private val mainRepository: MainRepository) : ViewModel() {
+
+    private var _dailyData = MutableLiveData<Quote>()
+    val dailyData: LiveData<Quote>
+        get() = _dailyData
 
     private var savedStateSymbols: Resource<List<Symbols>> = Resource.loading(data = null)
     fun getSymbols(): LiveData<Resource<List<Symbols>>> =
@@ -31,12 +36,13 @@ class StockViewModel(private val mainRepository: MainRepository) : ViewModel() {
             emit(Resource.loading(data = null))
             try {
                 emit(Resource.success(data = mainRepository.getQuote(symbol)))
+                _dailyData.postValue(this.latestValue?.data ?: Quote(2.22, 2.22, 2.22, 2.22, 2.22, 22))
             } catch (exception: Exception) {
                 emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
             }
         }
 
-    fun getCandle(symbol: String, resolution: String, from: Int, to: Int): LiveData<Resource<Candle>> =
+    fun getCandle(symbol: String, resolution: String, from: Long, to: Long): LiveData<Resource<Candle>> =
         liveData(Dispatchers.IO) {
             emit(Resource.loading(data = null))
             try {

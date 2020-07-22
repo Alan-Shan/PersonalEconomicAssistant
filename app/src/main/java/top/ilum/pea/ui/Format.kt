@@ -13,4 +13,3 @@ fun formatNumber(num: Double): String {     // method for formatting numbers
     }
     return str.reversed()
 }
-
