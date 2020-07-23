@@ -17,7 +17,7 @@ import top.ilum.pea.utils.Status
 class HomeFragment : Fragment(), DialogSelection.OnInputListener {
 
     private lateinit var viewModel: NewsViewModel
-    var savedCategory = 0
+    private var savedCategory = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,12 +40,16 @@ class HomeFragment : Fragment(), DialogSelection.OnInputListener {
         super.onViewCreated(view, savedInstanceState)
         getNews(savedCategory)
         selector.setOnClickListener {
+            val dialogArgs: Bundle = Bundle()
+            dialogArgs.putInt("category", savedCategory)
             val dialog = DialogSelection()
             dialog.setTargetFragment(
                 this,
                 22
             )
-            fragmentManager?.let { it1 -> dialog.show(it1, "Dialog") }
+            dialog.arguments = dialogArgs
+            dialog.show(parentFragmentManager, "Dialog")
+
         }
     }
 

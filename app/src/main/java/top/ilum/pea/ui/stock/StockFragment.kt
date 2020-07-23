@@ -205,7 +205,7 @@ class StockFragment : Fragment(), StockDialog.StockChange {
                 this,
                 22
             )
-            fragmentManager?.let { it1 -> stockMenu.show(it1, "Dialog") }
+            stockMenu.show(parentFragmentManager, "Dialog")
         }
     }
 
