@@ -29,10 +29,11 @@
     <string name="select_category">Выберите категорию</string>
     <string name="cancel">Отмена</string>
     <string name="exchanges__rateDesc">Курс:</string>
-    <string name="watch_other">Watch other</string>
+    <string name="watch_other">Смотреть другие</string>
     <string name="daily_range">Дн. диапазон:</string>
     <string name="opening">Открытие:</string>
     <string name="closing">Пред. закрытие:</string>
+    <string name="stock_price">Курс акции</string>
     <string name="exchange__successLoad">Котировки успешно загружены!</string>
     <string name="exchange__badLoad">Для загрузки котировок необходим интернет</string>
 </resources>

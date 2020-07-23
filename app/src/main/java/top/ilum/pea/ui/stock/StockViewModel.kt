@@ -18,7 +18,8 @@ class StockViewModel(private val mainRepository: MainRepository, application: Ap
 
     private var _dailyData = MutableLiveData<Quote>()
     private var personDao: SymbolsDao = Database.getDatabase(application).symbolsDao()
-
+    private var cachedCandle: Resource<Candle> = Resource.loading(null)
+    private var cachedSymbol: String = "foobar"
     val dailyData: LiveData<Quote>
         get() = _dailyData
 
@@ -41,8 +42,10 @@ class StockViewModel(private val mainRepository: MainRepository, application: Ap
         liveData(Dispatchers.IO) {
             emit(Resource.loading(data = null))
             try {
-                emit(Resource.success(data = mainRepository.getQuote(symbol)))
-                _dailyData.postValue(this.latestValue?.data!!)
+                if (dailyData.value == null || dailyData.value !== this.latestValue?.data) {
+                    emit(Resource.success(data = mainRepository.getQuote(symbol)))
+                    _dailyData.postValue(this.latestValue?.data!!)
+                } else { emit(Resource.success(dailyData.value!!)) }
             } catch (exception: Exception) {
                 emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
             }
@@ -52,8 +55,12 @@ class StockViewModel(private val mainRepository: MainRepository, application: Ap
         liveData(Dispatchers.IO) {
             emit(Resource.loading(data = null))
             try {
+                if (cachedSymbol !== symbol || cachedCandle.status == Status.LOADING) {
+                    cachedCandle =  Resource.success(data = mainRepository.getCandle(symbol, resolution, from, to))
+                    cachedSymbol = symbol
+                }
 
-                emit(Resource.success(data = mainRepository.getCandle(symbol, resolution, from, to)))
+                emit(cachedCandle)
             } catch (exception: Exception) {
                 emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
             }

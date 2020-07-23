@@ -19,10 +19,11 @@ class DialogSelection : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
         activity?.let {
+            val category = arguments?.getInt("category") ?: 0
             val builder = AlertDialog.Builder(it)
             builder.setTitle(R.string.select_category)
                 .setSingleChoiceItems(
-                    newsCategories, -1
+                    newsCategories, category
                 ) { dialog, item ->
                     onInputListener!!.sendInput(item)
                     dialog.dismiss()

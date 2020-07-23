@@ -47,6 +47,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui:2.3.0'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.0'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.0'
+    implementation 'androidx.recyclerview:recyclerview:1.2.0-alpha05'
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
@@ -79,6 +80,9 @@ dependencies {
     implementation "androidx.room:room-runtime:2.2.5"
     kapt "androidx.room:room-compiler:2.2.5"
     implementation 'androidx.room:room-rxjava2:2.2.5'
+
+    //Custom Tabs
+    implementation 'androidx.browser:browser:1.2.0'
 
     // Jsoup
     implementation 'org.jsoup:jsoup:1.13.1'

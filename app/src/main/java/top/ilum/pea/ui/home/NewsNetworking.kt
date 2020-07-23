@@ -10,15 +10,14 @@ import top.ilum.pea.data.News
 interface ApiService {
 
     @GET("your money.json")
-    suspend fun getNews(@Query("api-key") apiKey: String): News
+    suspend fun getNews(@Query("api-key") apiKey: String, @Query("limit") limit: Int = 80): News
 
     @GET("business.json")
-    suspend fun getBusiness(@Query("api-key") apiKey: String): News
+    suspend fun getBusiness(@Query("api-key") apiKey: String, @Query("limit") limit: Int = 80): News
 }
 
 object RetrofitBuilder {
     private const val BASE_URL = "https://api.nytimes.com/svc/news/v3/content/all/"
-
     private fun getRetrofit(): Retrofit =
         Retrofit.Builder()
             .baseUrl(BASE_URL)

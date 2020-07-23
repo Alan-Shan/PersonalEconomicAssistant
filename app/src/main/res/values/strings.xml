@@ -31,9 +31,10 @@
     <string name="cancel">Cancel</string>
     <string name="exchanges__rateDesc">Rate:</string>
     <string name="watch_other">Watch other</string>
-    <string name="daily_range">Дн. диапазон:</string>
-    <string name="opening">Открытие:</string>
-    <string name="closing">Пред. закрытие:</string>
+    <string name="daily_range">Daily range:</string>
+    <string name="opening">Opening price:</string>
+    <string name="closing">Pre-closing price:</string>
+    <string name="stock_price">Stock price</string>
     <string name="exchange__successLoad">Exchanges loaded successfully</string>
     <string name="exchange__badLoad">Sorry! You don\'t have an active network!</string>
 </resources>
