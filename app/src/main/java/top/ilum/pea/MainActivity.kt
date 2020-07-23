@@ -1,5 +1,6 @@
 package top.ilum.pea
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
@@ -18,9 +19,21 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: StockViewModel
     private var currentNavController: LiveData<NavController>? = null
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        // Toolbar
+//        supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
+        val toolbarDrawable = getDrawable(R.drawable.toolbar)
+        toolbarDrawable?.level = 10000
+        supportActionBar?.setBackgroundDrawable(toolbarDrawable)
+        supportActionBar?.elevation = 7F
+//        supportActionBar?.setCustomView(R.layout.toolbar)
+//        val toolbarTitle = supportActionBar?.customView?.findViewById<TextView>(R.id.toolbar__text);
+//        toolbarTitle?.text = "My Custom Title"
+
         Database.getDatabase(application)
         if (savedInstanceState == null) {
             viewModel = ViewModelProvider(
