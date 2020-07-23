@@ -41,6 +41,7 @@ class StockFragment : Fragment(), StockDialog.StockChange {
                         service_container.visibility = View.VISIBLE
                     }
                     Status.SUCCESS -> {
+                        progressBar.visibility = View.GONE
                         val closePrices = it.data!!.closePrices
                         fun setData(count: Int, range: Float) {
                             val values: ArrayList<Entry> = ArrayList()
