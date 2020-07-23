@@ -49,7 +49,6 @@ class HomeFragment : Fragment(), DialogSelection.OnInputListener {
             )
             dialog.arguments = dialogArgs
             dialog.show(parentFragmentManager, "Dialog")
-
         }
     }
 
