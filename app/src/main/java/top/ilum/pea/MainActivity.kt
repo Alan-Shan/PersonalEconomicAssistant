@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
@@ -17,32 +18,26 @@ import top.ilum.pea.ui.stock.RetrofitBuilder
 import top.ilum.pea.ui.stock.StockApiHelper
 import top.ilum.pea.ui.stock.StockViewModel
 import top.ilum.pea.ui.stock.StockViewModelFactory
-import top.ilum.pea.utils.NetworkChangeReceiver
-import top.ilum.pea.utils.SharedViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: StockViewModel
-    private lateinit var sharedViewModel: SharedViewModel
     private var currentNavController: LiveData<NavController>? = null
-    private lateinit var broadcastReceiver: NetworkChangeReceiver
-    private lateinit var broadcastRes: BroadcastReceiver
 
-    override fun onResume() {
-        super.onResume()
-        sharedViewModel = ViewModelProvider(this).get(SharedViewModel::class.java)
-        broadcastReceiver = NetworkChangeReceiver()
-        registerReceiver(broadcastReceiver, IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"))
-        broadcastRes = object : BroadcastReceiver() {
-            override fun onReceive(context: Context?, intent: Intent?) {
-                sharedViewModel.setConnectivityStatus(true)
-            }
-        }
-        registerReceiver(broadcastRes, IntentFilter("CONNECTION_IS_BACK"))
-    }
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
+
+        // Toolbar
+//        supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
+        val toolbarDrawable = getDrawable(R.drawable.toolbar)
+        toolbarDrawable?.level = 10000
+        supportActionBar?.setBackgroundDrawable(toolbarDrawable)
+        supportActionBar?.elevation = 7F
+//        supportActionBar?.setCustomView(R.layout.toolbar)
+//        val toolbarTitle = supportActionBar?.customView?.findViewById<TextView>(R.id.toolbar__text);
+//        toolbarTitle?.text = "My Custom Title"
 
         Database.getDatabase(application)
 
