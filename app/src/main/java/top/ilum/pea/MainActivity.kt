@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val db = Database.getDatabase(application)
+        Database.getDatabase(application)
         if (savedInstanceState == null) {
             viewModel = ViewModelProvider(
                 this,

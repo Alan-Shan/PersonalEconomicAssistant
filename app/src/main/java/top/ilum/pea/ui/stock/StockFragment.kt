@@ -27,6 +27,7 @@ class StockFragment : Fragment(), StockDialog.StockChange {
 
     private lateinit var viewModel: StockViewModel
     var currency = "USD"
+    var cachedStock: Symbols = Symbols("Apple", "AAPL", "AAPL", "lol", currency)
     private fun getCandle(symbol: String, resolution: String, from: Long, to: Long) {
 
         viewModel.getCandle(symbol, resolution, from, to).observe(
@@ -35,6 +36,9 @@ class StockFragment : Fragment(), StockDialog.StockChange {
                 when (it.status) {
 
                     Status.LOADING -> {
+                        success_container.visibility = View.GONE
+                        no_network_txt.visibility = View.GONE
+                        service_container.visibility = View.VISIBLE
                     }
                     Status.SUCCESS -> {
                         val closePrices = it.data!!.closePrices
@@ -54,6 +58,7 @@ class StockFragment : Fragment(), StockDialog.StockChange {
                                 set1.notifyDataSetChanged()
                                 stock_chart.data.notifyDataChanged()
                                 stock_chart.notifyDataSetChanged()
+                                stock_chart.invalidate()
                             } else {
                                 set1 = LineDataSet(values, getString(R.string.stock_price))
                                 set1.setDrawIcons(false)
@@ -88,6 +93,8 @@ class StockFragment : Fragment(), StockDialog.StockChange {
 
                                 stock_chart.data = data
                             }
+                            service_container.visibility = View.GONE
+                            success_container.visibility = View.VISIBLE
                         }
 
                         stock_chart.setBackgroundColor(Color.WHITE)
@@ -106,7 +113,8 @@ class StockFragment : Fragment(), StockDialog.StockChange {
                         setData(closePrices.size, 180f)   // а ещё вот здесь
                     }
                     Status.ERROR -> {
-                        Log.e("ERROR!", it.message.toString())
+                        no_network_txt.visibility = View.VISIBLE
+                        progressBar.visibility = View.GONE
                     }
                 }
             }
@@ -173,7 +181,7 @@ class StockFragment : Fragment(), StockDialog.StockChange {
                 val percentage =
                     "%.2f".format((it.currentPrice - it.previousClosePrice) / divideBy * 100)
                 val stockChange = "%.2f".format(it.currentPrice - it.previousClosePrice)
-                var stockValDisplay: String
+                val stockValDisplay: String
                 stockValDisplay = if (it.currentPrice - it.previousClosePrice < 0) {
                     txt_stock_val_change.setTextColor(Color.RED)
                     "$stockChange $currency ($percentage%)"
@@ -190,8 +198,7 @@ class StockFragment : Fragment(), StockDialog.StockChange {
                 txtValRange.text = range
             }
         )
-
-        dataChanged(Symbols("Apple", "AAPL", "AAPL", "lol", currency))
+        dataChanged(cachedStock)
         btnWatchOther.setOnClickListener {
             val stockMenu = StockDialog()
             stockMenu.setTargetFragment(
@@ -204,5 +211,6 @@ class StockFragment : Fragment(), StockDialog.StockChange {
 
     override fun sendInput(symbols: Symbols) {
         dataChanged(symbols)
+        cachedStock = symbols
     }
 }

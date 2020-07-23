@@ -1,18 +1,18 @@
 package top.ilum.pea.ui.home
 
-import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.cardview.widget.CardView
-import androidx.core.content.ContextCompat.startActivity
+import androidx.core.content.ContextCompat.getColor
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.news_item.view.*
 import top.ilum.pea.R
-import top.ilum.pea.WebViewActivity
 import top.ilum.pea.data.Results
 
 class NewsAdapter(private var list: List<Results>) :
@@ -31,18 +31,27 @@ class NewsAdapter(private var list: List<Results>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.header.text = list[position].title
-        holder.description.text = list[position].abstract
+
+        if (list[position].abstract.isNotEmpty()) {
+            holder.description.text = list[position].abstract
+        } else {
+            holder.description.visibility = View.GONE
+        }
+
         if (!list[position].multimedia.isNullOrEmpty()) {
             Picasso.get().load(list[position].multimedia[2].url)
                 .into(holder.preview) // Load cropped picture
-        }
+        } else { holder.preview.visibility = View.GONE }
+
         holder.card.setOnClickListener {
-            startActivity(
-                it.context,
-                Intent(it.context, WebViewActivity::class.java)
-                    .putExtra("url", list[position].url),
-                null
-            )
+
+            val url: String = list[position].url
+
+            val builder = CustomTabsIntent.Builder().setToolbarColor(getColor(it.context, R.color.colorPrimary))
+            builder.setStartAnimations(it.context, R.anim.slide_in_right, R.anim.slide_out_left)
+            builder.setExitAnimations(it.context, R.anim.slide_in_left, R.anim.slide_out_right)
+            val customTabsIntent = builder.build()
+            customTabsIntent.launchUrl(it.context, Uri.parse(url))
         }
     }
 
