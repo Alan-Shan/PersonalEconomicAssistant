@@ -76,6 +76,4 @@ class StockViewModel(private val mainRepository: MainRepository, application: Ap
                 emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
             }
         }
-    fun populateDb() {
-    }
 }

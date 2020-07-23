@@ -1,7 +1,6 @@
 package top.ilum.pea.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,16 +11,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_home.*
 import top.ilum.pea.R
+import top.ilum.pea.utils.SharedViewModel
 import top.ilum.pea.utils.Status
 
 class HomeFragment : Fragment(), DialogSelection.OnInputListener {
 
     private lateinit var viewModel: NewsViewModel
+    private lateinit var sharedViewModel: SharedViewModel
     private var savedCategory = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance = true
+        sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
         viewModel = ViewModelProvider(
             this,
             ViewModelFactory(ApiHelper(RetrofitBuilder.apiService))
@@ -40,7 +42,7 @@ class HomeFragment : Fragment(), DialogSelection.OnInputListener {
         super.onViewCreated(view, savedInstanceState)
         getNews(savedCategory)
         selector.setOnClickListener {
-            val dialogArgs: Bundle = Bundle()
+            val dialogArgs = Bundle()
             dialogArgs.putInt("category", savedCategory)
             val dialog = DialogSelection()
             dialog.setTargetFragment(
@@ -51,9 +53,7 @@ class HomeFragment : Fragment(), DialogSelection.OnInputListener {
             dialog.show(parentFragmentManager, "Dialog")
         }
     }
-
     private fun getNews(category: Int) {
-        savedCategory = category
         viewModel.getNews(category).observe(
             viewLifecycleOwner,
             Observer {
@@ -68,13 +68,24 @@ class HomeFragment : Fragment(), DialogSelection.OnInputListener {
                                 layoutManager = LinearLayoutManager(activity)
                                 adapter = NewsAdapter(it.data!!.results)
                                 (adapter as NewsAdapter).stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+                                if (sharedViewModel.connectivityStatus.hasObservers()) {
+                                    sharedViewModel.connectivityStatus.removeObservers(viewLifecycleOwner)
+                                }
                             }
                         }
                         Status.ERROR -> {
                             news_recycler.visibility = View.GONE
                             loading.visibility = View.GONE
                             ouch.visibility = View.VISIBLE
-                            Log.e("error", it.message.toString())
+                            sharedViewModel.connectivityStatus.observe(
+                                viewLifecycleOwner,
+                                Observer { itStat ->
+                                    if (itStat) {
+                                        ouch.visibility = View.GONE
+                                        getNews(savedCategory)
+                                    }
+                                }
+                            )
                         }
                         Status.LOADING -> {
 
@@ -85,7 +96,9 @@ class HomeFragment : Fragment(), DialogSelection.OnInputListener {
             }
         )
     }
+
     override fun sendInput(input: Int) {
         getNews(input)
+        savedCategory = input
     }
 }

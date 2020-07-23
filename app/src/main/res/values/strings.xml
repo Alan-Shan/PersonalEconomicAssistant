@@ -5,7 +5,7 @@
     <string name="title_calculators">Calculator</string>
     <string name="title_exchange">Exchange</string>
     <string name="textimg" translatable="false">NYT</string>
-    <string name="network_unreacheable">Sorry! You don\'t have an active network!</string>
+    <string name="network_unreachable">Sorry! You don\'t have an active network!</string>
     <string name="exchanges__numberOf">Number</string>
     <string name="credit">Credit calculator</string>
     <string name="deposit">Deposit calculator</string>
@@ -22,7 +22,6 @@
     <string name="size_of_contribution">Size of contribution, rub:</string>
     <string name="period_of_deposit">Period of deposit, years:</string>
     <string name="rate_on_the_deposit_per_year">Rate on the deposit per year, %:</string>
-    <string name="payment_type">Payment type</string>
     <string name="fill_fields">Fill in all fields!</string>
     <string name="descriptionCredit">Here you can calculate the loan amount, find out the monthly payment and the overpayment amount.</string>
     <string name="descriptionDeposit">Calculation of income from placing a deposit in a bank for various terms and rates.</string>
@@ -35,6 +34,4 @@
     <string name="opening">Opening price:</string>
     <string name="closing">Pre-closing price:</string>
     <string name="stock_price">Stock price</string>
-    <string name="exchange__successLoad">Exchanges loaded successfully</string>
-    <string name="exchange__badLoad">Sorry! You don\'t have an active network!</string>
 </resources>

@@ -18,16 +18,17 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import kotlinx.android.synthetic.main.fragment_stock.*
 import top.ilum.pea.R
 import top.ilum.pea.data.Symbols
+import top.ilum.pea.utils.SharedViewModel
 import top.ilum.pea.utils.Status
-import java.util.Calendar
-import java.util.Date
+import java.util.*
 import kotlin.collections.ArrayList
 
 class StockFragment : Fragment(), StockDialog.StockChange {
 
     private lateinit var viewModel: StockViewModel
-    var currency = "USD"
-    var cachedStock: Symbols = Symbols("Apple", "AAPL", "AAPL", "lol", currency)
+    private lateinit var sharedViewModel: SharedViewModel
+    private var currency = "USD"
+    private var cachedStock: Symbols = Symbols("Apple", "AAPL", "AAPL", "lol", currency)
     private fun getCandle(symbol: String, resolution: String, from: Long, to: Long) {
 
         viewModel.getCandle(symbol, resolution, from, to).observe(
@@ -38,84 +39,103 @@ class StockFragment : Fragment(), StockDialog.StockChange {
                     Status.LOADING -> {
                         success_container.visibility = View.GONE
                         no_network_txt.visibility = View.GONE
-                        service_container.visibility = View.VISIBLE
+                        progressBar.visibility = View.VISIBLE
                     }
                     Status.SUCCESS -> {
                         progressBar.visibility = View.GONE
-                        val closePrices = it.data!!.closePrices
-                        fun setData(count: Int, range: Float) {
-                            val values: ArrayList<Entry> = ArrayList()
-                            for (i in 0 until count) {
-                                values.add(
-                                    Entry(i.toFloat(), closePrices[i].toFloat())
-                                )
+                        if (it.data?.timestamp !== null) {
+                            val closePrices = it.data.closePrices
+                            fun setData(count: Int, range: Float) {
+                                val values: ArrayList<Entry> = ArrayList()
+                                for (i in 0 until count) {
+                                    values.add(
+                                        Entry(i.toFloat(), closePrices[i].toFloat())
+                                    )
+                                }
+                                val set1: LineDataSet
+                                if (stock_chart.data != null &&
+                                    stock_chart.data.dataSetCount > 0
+                                ) {
+                                    set1 = stock_chart.data.getDataSetByIndex(0) as LineDataSet
+                                    set1.values = values
+                                    set1.notifyDataSetChanged()
+                                    stock_chart.data.notifyDataChanged()
+                                    stock_chart.notifyDataSetChanged()
+                                    stock_chart.invalidate()
+                                } else {
+                                    set1 = LineDataSet(values, getString(R.string.stock_price))
+                                    set1.setDrawIcons(false)
+
+                                    set1.enableDashedLine(10f, 5f, 0f)
+
+                                    set1.color = Color.BLACK
+                                    set1.setCircleColor(Color.BLACK)
+
+                                    set1.lineWidth = 1f
+                                    set1.circleRadius = 1f
+
+                                    set1.setDrawCircleHole(false)
+
+                                    set1.formLineWidth = 1f
+                                    set1.formLineDashEffect =
+                                        DashPathEffect(floatArrayOf(10f, 5f), 0f)
+                                    set1.formSize = 10f
+
+                                    set1.valueTextSize = 9f
+
+                                    set1.enableDashedHighlightLine(10f, 5f, 0f)
+
+                                    set1.setDrawFilled(true)
+                                    set1.fillFormatter =
+                                        IFillFormatter { _, _ -> stock_chart.axisLeft.axisMinimum }
+
+                                    val dataSets: ArrayList<ILineDataSet> = ArrayList()
+                                    dataSets.add(set1)
+
+                                    val data = LineData(dataSets)
+
+                                    stock_chart.data = data
+                                }
                             }
-                            val set1: LineDataSet
-                            if (stock_chart.data != null &&
-                                stock_chart.data.dataSetCount > 0
-                            ) {
-                                set1 = stock_chart.data.getDataSetByIndex(0) as LineDataSet
-                                set1.values = values
-                                set1.notifyDataSetChanged()
-                                stock_chart.data.notifyDataChanged()
-                                stock_chart.notifyDataSetChanged()
-                                stock_chart.invalidate()
-                            } else {
-                                set1 = LineDataSet(values, getString(R.string.stock_price))
-                                set1.setDrawIcons(false)
 
-                                set1.enableDashedLine(10f, 5f, 0f)
+                            stock_chart.setBackgroundColor(Color.WHITE)
+                            stock_chart.description.isEnabled = false
+                            stock_chart.setTouchEnabled(true)
+                            stock_chart.setPinchZoom(true)
 
-                                set1.color = Color.BLACK
-                                set1.setCircleColor(Color.BLACK)
+                            val xAxis = stock_chart.xAxis
+                            xAxis.enableGridDashedLine(10f, 10f, 0f)
+                            val yAxis = stock_chart.axisLeft
+                            stock_chart.axisRight.isEnabled = false
+                            yAxis.enableGridDashedLine(10f, 10f, 0f)
 
-                                set1.lineWidth = 1f
-                                set1.circleRadius = 1f
-
-                                set1.setDrawCircleHole(false)
-
-                                set1.formLineWidth = 1f
-                                set1.formLineDashEffect =
-                                    DashPathEffect(floatArrayOf(10f, 5f), 0f)
-                                set1.formSize = 10f
-
-                                set1.valueTextSize = 9f
-
-                                set1.enableDashedHighlightLine(10f, 5f, 0f)
-
-                                set1.setDrawFilled(true)
-                                set1.fillFormatter =
-                                    IFillFormatter { _, _ -> stock_chart.axisLeft.axisMinimum }
-
-                                val dataSets: ArrayList<ILineDataSet> = ArrayList()
-                                dataSets.add(set1)
-
-                                val data = LineData(dataSets)
-
-                                stock_chart.data = data
-                            }
-                            service_container.visibility = View.GONE
-                            success_container.visibility = View.VISIBLE
+                            yAxis.axisMaximum = closePrices.max()!!.toFloat()  // вот здесь
+                            yAxis.axisMinimum = closePrices.min()!!.toFloat()    // и вот здесь
+                            setData(closePrices.size, 180f)   // а ещё вот здесь
+                        } else {
+                            stock_chart.notifyDataSetChanged()
+                            stock_chart.invalidate()
+                            stock_chart.clear()
                         }
+                        progressBar.visibility = View.GONE
+                        success_container.visibility = View.VISIBLE
 
-                        stock_chart.setBackgroundColor(Color.WHITE)
-                        stock_chart.description.isEnabled = false
-                        stock_chart.setTouchEnabled(true)
-                        stock_chart.setPinchZoom(true)
-
-                        val xAxis = stock_chart.xAxis
-                        xAxis.enableGridDashedLine(10f, 10f, 0f)
-                        val yAxis = stock_chart.axisLeft
-                        stock_chart.axisRight.isEnabled = false
-                        yAxis.enableGridDashedLine(10f, 10f, 0f)
-
-                        yAxis.axisMaximum = closePrices.max()!!.toFloat()  // вот здесь
-                        yAxis.axisMinimum = closePrices.min()!!.toFloat()    // и вот здесь
-                        setData(closePrices.size, 180f)   // а ещё вот здесь
+                        if (sharedViewModel.connectivityStatus.hasObservers()) {
+                            sharedViewModel.connectivityStatus.removeObservers(viewLifecycleOwner)
+                        }
                     }
                     Status.ERROR -> {
                         no_network_txt.visibility = View.VISIBLE
                         progressBar.visibility = View.GONE
+                        sharedViewModel.connectivityStatus.observe(
+                            viewLifecycleOwner,
+                            Observer { itStat ->
+                                if (itStat) {
+                                    no_network_txt.visibility = View.GONE
+                                    dataChanged(cachedStock)
+                                }
+                            }
+                        )
                     }
                 }
             }
@@ -154,6 +174,7 @@ class StockFragment : Fragment(), StockDialog.StockChange {
         super.onCreate(savedInstanceState)
         retainInstance = true
 
+        sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
         viewModel = ViewModelProvider(
             this,
             StockViewModelFactory(StockApiHelper(RetrofitBuilder.apiService))

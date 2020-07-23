@@ -19,7 +19,6 @@ class ExchangeAdapter(
 
     private val viewHoldersList = mutableListOf<ViewHolder>()
     private var isActive = false
-    private var position = 0
 
     private val layoutsList = listOf(
         R.layout.item__exchange_elem,
@@ -80,7 +79,7 @@ class ExchangeAdapter(
             0
         }
 
-    inner class ViewHolder(private val root: View) : RecyclerView.ViewHolder(root) {
+    inner class ViewHolder(root: View) : RecyclerView.ViewHolder(root) {
         val relativeLayout = root as ConstraintLayout
         var isHolderActive = isActive
         var elementName: TextView = root.exchange_elem__name

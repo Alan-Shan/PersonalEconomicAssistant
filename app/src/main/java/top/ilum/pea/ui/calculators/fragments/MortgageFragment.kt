@@ -76,7 +76,8 @@ class MortgageFragment : Fragment() {
             months--
         }
         val total = list.sum()
-        txtValMonthMortgage.text = formatNumber(list[0]) + " ... " + formatNumber(list[list.size - 1])
+        val monthVal = formatNumber(list[0]) + " ... " + formatNumber(list[list.size - 1])
+        txtValMonthMortgage.text = monthVal
         txtValTotalMortgage.text = formatNumber(total)
         txtValOverMortgage.text = formatNumber(total - sum)
     }

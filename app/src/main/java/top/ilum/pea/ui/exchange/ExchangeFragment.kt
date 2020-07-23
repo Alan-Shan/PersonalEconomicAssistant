@@ -4,25 +4,29 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_exchange.*
 import org.jsoup.Jsoup
 import top.ilum.pea.MainActivity
 import top.ilum.pea.R
 import top.ilum.pea.data.ExchangeElement
+import top.ilum.pea.utils.SharedViewModel
 import java.text.DecimalFormat
+import java.util.Locale
 import kotlin.math.roundToLong
 
 class ExchangeFragment : Fragment() {
 
     private lateinit var secThread: Thread
     private lateinit var runable: Runnable
+    private lateinit var sharedViewModel: SharedViewModel
 
     private val siteName = "https://www.cbr-xml-daily.ru/daily_utf8.xml"
 
@@ -36,9 +40,6 @@ class ExchangeFragment : Fragment() {
 
     private var handler: Handler = Handler(Looper.getMainLooper())
 
-//    private lateinit var leftAdapter: RecyclerView.Adapter<ExchangeAdapter.ViewHolder>
-//    private lateinit var rightAdapter: RecyclerView.Adapter<ExchangeAdapter.ViewHolder>
-
     private var leftAdapter =
         ExchangeAdapter(exchangeList, leftActive, isLeft = true, exchangeParent = this)
     private var rightAdapter =
@@ -49,8 +50,6 @@ class ExchangeFragment : Fragment() {
 
     private var wasExchangesLoaded = false
 
-//    private var firstRebuild = true
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -58,16 +57,10 @@ class ExchangeFragment : Fragment() {
     ): View? =
         inflater.inflate(R.layout.fragment_exchange, container, false)
 
-    override fun onPause() {
-        super.onPause()
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        val intentFilter: IntentFilter = IntentFilter()
-//        intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-//        registerReceiver(networkChangeReceiver, intentFilter);
+        sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
 
         loadExchanges()
 
@@ -75,13 +68,8 @@ class ExchangeFragment : Fragment() {
     }
 
     private fun onSuccessLoad() {
-        exchanges__noConnection.text = ""
-//        if (!firstRebuild) {
-//            leftElem = exchangeList[leftActive]
-//            rightElem = exchangeList[rightActive]
-//        } else {
-//            firstRebuild = false
-//        }
+        exchanges__noConnection.visibility = View.GONE
+
         leftElem = exchangeList[leftActive]
         rightElem = exchangeList[rightActive]
         changeElems(leftActive, left = true)
@@ -90,6 +78,21 @@ class ExchangeFragment : Fragment() {
         exchanges__input.addTextChangedListener {
             changeValues()
         }
+        if (sharedViewModel.connectivityStatus.hasObservers()) {
+            sharedViewModel.connectivityStatus.removeObservers(viewLifecycleOwner)
+        }
+    }
+
+    private fun onUnsuccessfulLoad() {
+        sharedViewModel.connectivityStatus.observe(
+            viewLifecycleOwner,
+            Observer { itStat ->
+                if (itStat) {
+                    exchanges__noConnection.visibility = View.GONE
+                    loadExchanges()
+                }
+            }
+        )
     }
 
     private fun buildAdapters() {
@@ -181,7 +184,9 @@ class ExchangeFragment : Fragment() {
                     if (!wasExchangesLoaded) {
                         handler.post {
                             run {
-                                exchanges__noConnection.text = getText(R.string.exchange__badLoad)
+                                exchanges__noConnection.visibility = View.VISIBLE
+                                exchanges__loading.visibility = View.GONE
+                                onUnsuccessfulLoad()
                             }
                         }
                     }
@@ -190,14 +195,9 @@ class ExchangeFragment : Fragment() {
                 val allCurrency = webDoc.getElementsByTag("Valute")
                 println(allCurrency[0])
                 allCurrency.forEach {
-                    val charCode = it.getElementsByTag("CharCode")[0].text().toUpperCase()
+                    val charCode = it.getElementsByTag("CharCode")[0].text().toUpperCase(Locale.ROOT)
                     val value = calcElemRate(it)
                     val name = it.getElementsByTag("Name")[0].text()
-//                    val sign = charCode
-//                    var sign = ""
-//                    if (signMap.containsKey(charCode)) {
-//                        sign = signMap[charCode].toString()
-//                    }
                     val exchangeElement = ExchangeElement(name, value, charCode)
                     exchangeList.add(exchangeElement)
                 }
@@ -208,7 +208,6 @@ class ExchangeFragment : Fragment() {
                 }
                 handler.post {
                     run {
-                        Log.d("Test", "thread go brr")
                         onSuccessLoad()
                     }
                 }
@@ -218,12 +217,6 @@ class ExchangeFragment : Fragment() {
         secThread = Thread(runable)
         secThread.start()
     }
-
-//    private val networkChangeReceiver: BroadcastReceiver = object : BroadcastReceiver() {
-//        override fun onReceive(context: Context?, intent: Intent?) {
-//            loadExchanges()
-//        }
-//    }
 
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putBoolean("wasLoaded", wasExchangesLoaded)

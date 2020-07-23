@@ -5,7 +5,7 @@
     <string name="title_stock">Акции</string>
     <string name="title_calculators">Калькулятор</string>
     <string name="title_exchange">Валюты</string>
-    <string name="network_unreacheable">К сожалению, сеть недоступна!</string>
+    <string name="network_unreachable">К сожалению, сеть недоступна!</string>
     <string name="exchanges__numberOf">Кол-во</string>
     <string name="credit">Кредитный калькулятор</string>
     <string name="deposit">Депозитный калькулятор</string>
@@ -21,7 +21,6 @@
     <string name="size_of_contribution">Размер вклада, руб:</string>
     <string name="period_of_deposit">Период размещения вклада, лет:</string>
     <string name="rate_on_the_deposit_per_year">Ставка по вкладу в год, %:</string>
-    <string name="payment_type">Тип платежа</string>
     <string name="fill_fields">Заполните все поля!</string>
     <string name="descriptionCredit">Здесь вы можете рассчитать сумму кредита, узнать размер ежемесячного платежа и сумму переплаты.</string>
     <string name="descriptionDeposit">Расчёт дохода от размещения в банке депозита на различные сроки и ставки.</string>
@@ -34,6 +33,4 @@
     <string name="opening">Открытие:</string>
     <string name="closing">Пред. закрытие:</string>
     <string name="stock_price">Курс акции</string>
-    <string name="exchange__successLoad">Котировки успешно загружены!</string>
-    <string name="exchange__badLoad">Для загрузки котировок необходим интернет</string>
 </resources>

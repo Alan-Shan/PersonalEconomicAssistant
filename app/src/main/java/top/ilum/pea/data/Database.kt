@@ -10,7 +10,7 @@ abstract class Database : RoomDatabase() {
     abstract fun symbolsDao(): SymbolsDao
 
     companion object {
-        const val DATABASE_NAME = "database"
+        private const val DATABASE_NAME = "database"
 
         @Volatile
         private var INSTANCE: top.ilum.pea.data.Database? = null

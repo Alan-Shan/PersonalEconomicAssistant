@@ -9,6 +9,7 @@
 
     <fragment
         android:id="@+id/exchangeScreen"
+        android:tag="exchange"
         android:name="top.ilum.pea.ui.exchange.ExchangeFragment"
         android:label="@string/title_exchange"
         tools:layout="@layout/fragment_exchange">

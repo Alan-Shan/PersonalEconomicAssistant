@@ -4,10 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_stock"
-    app:startDestination="@+id/stockScreen">
+    app:startDestination="@+id/stockScreen"
+    tools:ignore="UnusedNavigation">
 
     <fragment
         android:id="@+id/stockScreen"
+        android:tag="stock"
         android:name="top.ilum.pea.ui.stock.StockFragment"
         android:label="@string/title_stock"
         tools:layout="@layout/fragment_stock">

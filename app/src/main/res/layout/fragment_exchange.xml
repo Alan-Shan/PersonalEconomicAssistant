@@ -85,7 +85,6 @@
         app:layout_constraintStart_toEndOf="@+id/exchanges__rateDesc" />
 
     <LinearLayout
-        android:id="@+id/linearLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
@@ -154,6 +153,8 @@
         android:layout_marginBottom="10dp"
         android:textAlignment="center"
         android:textSize="14sp"
+        android:text="@string/network_unreachable"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

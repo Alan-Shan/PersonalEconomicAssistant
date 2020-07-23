@@ -56,7 +56,7 @@ class StockDialog : DialogFragment() {
         }
 
         fun loadEm() {
-            var isLoading: Boolean = false
+            var isLoading = false
 
             stockselectionrecycler.apply {
                 layoutManager = LinearLayoutManager(activity)

@@ -13,7 +13,7 @@ class DialogSelection : DialogFragment() {
         fun sendInput(input: Int)
     }
 
-    var onInputListener: OnInputListener? = null
+    private var onInputListener: OnInputListener? = null
 
     private val newsCategories = arrayOf("Your money", "Business")
 
