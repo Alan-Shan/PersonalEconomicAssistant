@@ -29,7 +29,11 @@ class MainActivity : AppCompatActivity() {
             )
                 .get(StockViewModel::class.java)
             setupBottomNavigationBar()
-            viewModel.getSymbols()
+            viewModel.getSymbols().observe(
+                this,
+                Observer {
+                }
+            )
         }
     }
 
