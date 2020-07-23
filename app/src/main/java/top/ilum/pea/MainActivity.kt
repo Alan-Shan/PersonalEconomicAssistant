@@ -1,5 +1,6 @@
 package top.ilum.pea
 
+import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -39,10 +40,17 @@ class MainActivity : AppCompatActivity() {
         }
         registerReceiver(broadcastRes, IntentFilter("CONNECTION_IS_BACK"))
     }
+
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
+
+        val toolbarDrawable = getDrawable(R.drawable.toolbar)
+        toolbarDrawable?.level = 10000
+        supportActionBar?.setBackgroundDrawable(toolbarDrawable)
+        supportActionBar?.elevation = 7F
 
         Database.getDatabase(application)
 

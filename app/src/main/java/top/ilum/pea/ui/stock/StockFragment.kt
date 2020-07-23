@@ -20,7 +20,8 @@ import top.ilum.pea.R
 import top.ilum.pea.data.Symbols
 import top.ilum.pea.utils.SharedViewModel
 import top.ilum.pea.utils.Status
-import java.util.*
+import java.util.Calendar
+import java.util.Date
 import kotlin.collections.ArrayList
 
 class StockFragment : Fragment(), StockDialog.StockChange {
