@@ -85,6 +85,7 @@
         app:layout_constraintStart_toEndOf="@+id/exchanges__rateDesc" />
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
@@ -107,16 +108,16 @@
             android:layout_height="wrap_content"
             android:layout_weight="50"
             android:background="@drawable/exchange_elem_bg"
+            android:elevation="5dp"
             android:paddingStart="1dp"
             android:paddingTop="1dp"
-            android:paddingEnd="1dp"
-            android:elevation="5dp">
+            android:paddingEnd="1dp">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/exchanges__recyclerLeft"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="-1dp"/>
+                android:layout_marginBottom="-1dp" />
 
         </RelativeLayout>
 
@@ -129,18 +130,46 @@
             android:layout_height="wrap_content"
             android:layout_weight="50"
             android:background="@drawable/exchange_elem_bg"
+            android:elevation="5dp"
             android:paddingStart="1dp"
             android:paddingTop="1dp"
-            android:paddingEnd="1dp"
-            android:elevation="5dp">
+            android:paddingEnd="1dp">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/exchanges__recyclerRight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="-1dp"/>
+                android:layout_marginBottom="-1dp" />
 
         </RelativeLayout>
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/exchanges__noConnection"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginBottom="10dp"
+        android:textAlignment="center"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/exchanges__rateDesc"
+        app:layout_constraintVertical_bias="0.3" />
+
+    <ProgressBar
+        android:id="@+id/exchanges__loading"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/exchanges__rateDesc"
+        app:layout_constraintVertical_bias="0.3"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

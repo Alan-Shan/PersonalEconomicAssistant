@@ -12,7 +12,7 @@ import top.ilum.pea.data.ExchangeElement
 
 class ExchangeAdapter(
     private val elemList: List<ExchangeElement>,
-    private var activeNum: Int,
+    var activeNum: Int,
     private val isLeft: Boolean,
     private val exchangeParent: ExchangeFragment
 ) : RecyclerView.Adapter<ExchangeAdapter.ViewHolder>() {
@@ -86,5 +86,4 @@ class ExchangeAdapter(
         var elementName: TextView = root.exchange_elem__name
         var elementSign: TextView = root.exchange_elem__sign
     }
-
 }
