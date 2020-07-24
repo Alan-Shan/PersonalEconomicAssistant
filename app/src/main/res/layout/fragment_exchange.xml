@@ -13,53 +13,45 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
-        android:layout_marginTop="18dp"
-        android:layout_marginEnd="14dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
         android:fontFamily="sans-serif-medium"
         android:textAlignment="center"
         android:textColor="@color/h2_color"
         android:textSize="22sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/exchanges__inputDesc1"
+        app:layout_constraintBottom_toTopOf="@+id/exchanges__input1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exchanges__inputDesc1"
+        app:layout_constraintTop_toBottomOf="@+id/exchanges__input1"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.5" />
 
-    <TextView
-        android:id="@+id/exchanges__inputDesc1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="75dp"
-        android:text="@string/exchanges__numberOf"
-        android:textColor="@color/input_desc"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/exchanges__input"
-        android:maxLength="18"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/exchanges__input1"
         android:layout_width="0dp"
-        android:layout_height="36dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
-        android:layout_marginTop="2dp"
         android:layout_marginEnd="14dp"
-        android:background="@drawable/input"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        android:maxLines="1"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
-        android:text=""
-        android:textColor="@color/input"
-        android:textSize="17sp"
+        android:hint="@string/period"
+        android:padding="0dp"
+        android:layout_marginTop="85dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exchanges__inputDesc1" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/exchanges__input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FFFFFF"
+            android:inputType="numberDecimal"
+            android:maxLength="18"
+            android:maxLines="1"
+            android:textColor="@color/secondaryTextColor" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/exchanges__rateDesc"
@@ -72,7 +64,7 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exchanges__input" />
+        app:layout_constraintTop_toBottomOf="@+id/exchanges__input1" />
 
     <TextView
         android:id="@+id/exchanges__rate"

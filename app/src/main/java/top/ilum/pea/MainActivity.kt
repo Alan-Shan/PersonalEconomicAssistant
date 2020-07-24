@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
+        // КтО УдалиЛ МоИ коМменТАрии??
         val toolbarDrawable = getDrawable(R.drawable.toolbar)
         toolbarDrawable?.level = 10000
         supportActionBar?.setBackgroundDrawable(toolbarDrawable)
