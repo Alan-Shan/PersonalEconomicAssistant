@@ -13,8 +13,7 @@ import top.ilum.pea.data.ExchangeElement
 class ExchangeAdapter(
     private val elemList: List<ExchangeElement>,
     var activeNum: Int,
-    private val isLeft: Boolean,
-    private val exchangeParent: ExchangeFragment
+    private val onClick: (Int) -> Unit
 ) : RecyclerView.Adapter<ExchangeAdapter.ViewHolder>() {
 
     private val viewHoldersList = mutableListOf<ViewHolder>()
@@ -62,7 +61,7 @@ class ExchangeAdapter(
                 it.setBackgroundResource(R.drawable.exchange__active_item)
                 holder.isHolderActive = true
                 activeNum = position
-                exchangeParent.changeElems(activeNum, left = isLeft)
+                onClick(activeNum)
             }
         }
         holder.elementName.text = elemList[position].name

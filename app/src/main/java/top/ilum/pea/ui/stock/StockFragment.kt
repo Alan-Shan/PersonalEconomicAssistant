@@ -180,7 +180,7 @@ class StockFragment : Fragment(), StockDialog.StockChange {
             StockViewModelFactory(StockApiHelper(RetrofitBuilder.apiService))
         )
             .get(StockViewModel::class.java)
-}
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

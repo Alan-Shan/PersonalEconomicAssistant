@@ -15,15 +15,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_exchange.*
 import org.jsoup.Jsoup
-import top.ilum.pea.MainActivity
 import top.ilum.pea.R
 import top.ilum.pea.data.ExchangeElement
-import top.ilum.pea.ui.home.NewsAdapter
 import top.ilum.pea.utils.SharedViewModel
 import java.text.DecimalFormat
 import java.util.Locale
 import kotlin.math.roundToLong
-import kotlin.properties.Delegates
 
 class ExchangeFragment : Fragment() {
 
@@ -47,21 +44,11 @@ class ExchangeFragment : Fragment() {
 
     private var handler: Handler = Handler(Looper.getMainLooper())
 
-    private var leftAdapter =
-        ExchangeAdapter(exchangeList, leftActive, isLeft = true, exchangeParent = this)
-    private var rightAdapter =
-        ExchangeAdapter(exchangeList, rightActive, isLeft = false, exchangeParent = this)
-
     private lateinit var leftLayoutManager: LinearLayoutManager
     private lateinit var rightLayoutManager: LinearLayoutManager
 
     private var wasExchangesLoaded = false
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        (rightAdapter).stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
-        (leftAdapter).stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
-    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -73,10 +60,15 @@ class ExchangeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
-
-        loadExchanges()
-
-        buildAdapters()
+        if (!wasExchangesLoaded) {
+            loadExchanges()
+            buildAdapters()
+        } else {
+            leftActive = cachedLeft
+            rightActive = cachedRight
+            buildAdapters()
+            showCalculated()
+        }
     }
 
     private fun onSuccessLoad() {
@@ -84,15 +76,9 @@ class ExchangeFragment : Fragment() {
 
         leftElem = exchangeList[leftActive]
         rightElem = exchangeList[rightActive]
-        if (cachedLeft != 99999 && cachedRight != 99999) {
-            leftActive = cachedRight
-            rightActive = cachedLeft
-        }
         changeElems(leftActive, left = true)
         changeElems(rightActive, left = false)
-        cachedLeft = 99999
-        cachedRight = 99999
-        rebuildAdapters()
+        buildAdapters()
         exchanges__input.addTextChangedListener {
             changeValues()
         }
@@ -114,25 +100,23 @@ class ExchangeFragment : Fragment() {
     }
 
     private fun buildAdapters() {
-        leftLayoutManager = LinearLayoutManager(MainActivity())
-        rightLayoutManager = LinearLayoutManager(MainActivity())
 
-        leftAdapter = ExchangeAdapter(exchangeList, leftActive, isLeft = true, exchangeParent = this)
-        rightAdapter = ExchangeAdapter(exchangeList, rightActive, isLeft = false, exchangeParent = this)
-
-        exchanges__recyclerLeft.layoutManager = leftLayoutManager
-        exchanges__recyclerLeft.adapter = leftAdapter
-
-        exchanges__recyclerRight.layoutManager = rightLayoutManager
-        exchanges__recyclerRight.adapter = rightAdapter
-    }
-
-    private fun rebuildAdapters() {
-        leftAdapter = ExchangeAdapter(exchangeList, leftActive, isLeft = true, exchangeParent = this)
-        rightAdapter = ExchangeAdapter(exchangeList, rightActive, isLeft = false, exchangeParent = this)
-
-        exchanges__recyclerLeft.adapter = leftAdapter
-        exchanges__recyclerRight.adapter = rightAdapter
+        exchanges__recyclerLeft.apply {
+            adapter = ExchangeAdapter(exchangeList, leftActive) {
+                changeElems(it, true)
+                cachedLeft = it
+            }
+            layoutManager = LinearLayoutManager(activity)
+            (adapter as ExchangeAdapter).stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+        }
+        exchanges__recyclerRight.apply {
+            layoutManager = LinearLayoutManager(activity)
+            adapter = ExchangeAdapter(exchangeList, rightActive) {
+                changeElems(it, false)
+                cachedRight = it
+            }
+            (adapter as ExchangeAdapter).stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+        }
     }
 
     private fun getValueText(num: Double, pattern: String = "#.###"): String {
@@ -144,7 +128,12 @@ class ExchangeFragment : Fragment() {
         }
     }
 
-    @SuppressLint("SetTextI18n")
+    private fun showCalculated() {
+        val rate = leftElem.value / rightElem.value
+        changeValues(rate)
+        val txtRate = "1 ${leftElem.sign} = ${getValueText(rate, "#.######")} ${rightElem.sign}"
+        exchanges__rate.text = txtRate
+    }
     fun changeElems(activeNum: Int, left: Boolean = true) {
         if (left) {
             leftElem = exchangeList[activeNum]
@@ -153,9 +142,7 @@ class ExchangeFragment : Fragment() {
             rightElem = exchangeList[activeNum]
             cachedRight = activeNum
         }
-        val rate = leftElem.value / rightElem.value
-        changeValues(rate)
-        exchanges__rate.text = "1 ${leftElem.sign} = ${getValueText(rate, "#.######")} ${rightElem.sign}"
+        showCalculated()
     }
 
     @SuppressLint("SetTextI18n")
@@ -240,8 +227,8 @@ class ExchangeFragment : Fragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putBoolean("wasLoaded", wasExchangesLoaded)
-        outState.putInt("leftActive", leftAdapter.activeNum)
-        outState.putInt("rightActive", rightAdapter.activeNum)
+        outState.putInt("leftActive", cachedLeft)
+        outState.putInt("rightActive", cachedRight)
         super.onSaveInstanceState(outState)
     }
 
