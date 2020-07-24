@@ -170,7 +170,6 @@ class StockFragment : Fragment(), StockDialog.StockChange {
         calendar.add(Calendar.DATE, -1)
         getCandle(symbols.symbol, "60", calendar.timeInMillis / 1000, System.currentTimeMillis() / 1000)
     }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance = true
@@ -181,7 +180,7 @@ class StockFragment : Fragment(), StockDialog.StockChange {
             StockViewModelFactory(StockApiHelper(RetrofitBuilder.apiService))
         )
             .get(StockViewModel::class.java)
-    }
+}
 
     override fun onCreateView(
         inflater: LayoutInflater,

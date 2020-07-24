@@ -12,15 +12,18 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_exchange.*
 import org.jsoup.Jsoup
 import top.ilum.pea.MainActivity
 import top.ilum.pea.R
 import top.ilum.pea.data.ExchangeElement
+import top.ilum.pea.ui.home.NewsAdapter
 import top.ilum.pea.utils.SharedViewModel
 import java.text.DecimalFormat
 import java.util.Locale
 import kotlin.math.roundToLong
+import kotlin.properties.Delegates
 
 class ExchangeFragment : Fragment() {
 
@@ -32,6 +35,10 @@ class ExchangeFragment : Fragment() {
 
     private var leftActive = 0
     private var rightActive = 0
+
+    private var cachedLeft = 99999
+
+    private var cachedRight = 99999
 
     private val exchangeList = mutableListOf<ExchangeElement>()
 
@@ -50,6 +57,11 @@ class ExchangeFragment : Fragment() {
 
     private var wasExchangesLoaded = false
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        (rightAdapter).stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+        (leftAdapter).stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -72,8 +84,14 @@ class ExchangeFragment : Fragment() {
 
         leftElem = exchangeList[leftActive]
         rightElem = exchangeList[rightActive]
+        if (cachedLeft != 99999 && cachedRight != 99999) {
+            leftActive = cachedRight
+            rightActive = cachedLeft
+        }
         changeElems(leftActive, left = true)
         changeElems(rightActive, left = false)
+        cachedLeft = 99999
+        cachedRight = 99999
         rebuildAdapters()
         exchanges__input.addTextChangedListener {
             changeValues()
@@ -130,8 +148,10 @@ class ExchangeFragment : Fragment() {
     fun changeElems(activeNum: Int, left: Boolean = true) {
         if (left) {
             leftElem = exchangeList[activeNum]
+            cachedLeft = activeNum
         } else {
             rightElem = exchangeList[activeNum]
+            cachedRight = activeNum
         }
         val rate = leftElem.value / rightElem.value
         changeValues(rate)
