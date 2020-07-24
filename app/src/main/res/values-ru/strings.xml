@@ -33,4 +33,5 @@
     <string name="opening">Открытие:</string>
     <string name="closing">Пред. закрытие:</string>
     <string name="stock_price">Курс акции</string>
+    <string name="change_stock_title">Сменить акцию</string>
 </resources>

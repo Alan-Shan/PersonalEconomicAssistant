@@ -200,7 +200,6 @@ class ExchangeFragment : Fragment() {
                     return
                 }
                 val allCurrency = webDoc.getElementsByTag("Valute")
-                println(allCurrency[0])
                 allCurrency.forEach {
                     val charCode = it.getElementsByTag("CharCode")[0].text().toUpperCase(Locale.ROOT)
                     val value = calcElemRate(it)
