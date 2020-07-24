@@ -34,4 +34,5 @@
     <string name="opening">Opening price:</string>
     <string name="closing">Pre-closing price:</string>
     <string name="stock_price">Stock price</string>
+    <string name="change_stock_title">Change stock</string>
 </resources>
